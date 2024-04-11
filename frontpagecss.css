@@ -1,0 +1,97 @@
+ul{
+    display: flex;
+    position: fixed;
+    width: 100%;
+    list-style-type: none;
+    margin: 0; padding: 0;
+    top: 0%;
+    left: 0%;
+    overflow: hidden;
+    background-color: #333;
+}
+
+div.welcome_site{
+    border-radius: 5px;
+    display: flex;
+    margin-top: 80px;
+    flex-direction: column;
+    align-items: center;
+}
+
+div.kartice{
+    display: flex;
+    border-radius: 5px;
+    gap: 50px;
+    justify-content: space-around;
+    background-color: cadetblue;
+    padding: 20px;
+    flex-direction: row;
+}
+
+div.kartice>div{
+    color:whitesmoke;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    align-items: center;
+    background-color: #352b2b;
+}
+
+div.kartice>div>h2, p{
+    text-align: center;
+}
+
+div.kartice>div>button{
+    background-color: bisque;
+    height: 50px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    margin: 15px;
+    font-size: 14px;
+    font-weight: bolder;
+    font-family: montserrat;
+}
+
+div.navbar>ul{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+ul>div{
+    flex: 2;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+li.naslov{
+    margin: 10px;
+    font-size: 30px;
+    color: green;
+}
+
+body{
+    background-color: #191414;
+    font-family: Montserrat;
+    color: whitesmoke;
+}
+
+li>a{
+    height: 41%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    padding: 8px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover{
+    background-color: #111;
+}
