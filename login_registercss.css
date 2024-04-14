@@ -62,7 +62,7 @@ div.form_flexcont{
 
 div.login_form{
     display: flex;
-    width: 25%;
+    width: inherit;
     padding: 50px;
     justify-content: center;
     background-color: #333;
@@ -73,7 +73,6 @@ div.login_form>form{
     align-items: center;
     display: flex;
     flex-direction: column;
-    padding: 20px;
     gap: 10px;
 }
 
@@ -86,12 +85,11 @@ div.register_form{
     padding: 50px;
     display: flex;
     justify-content: center;
-    width: 25%;
+    width: inherit;
     background-color: #333;
 }
 
 div.register_form>form{
-    padding: 20px;
     gap: 10px;
     align-items: center;
     display: flex;
@@ -121,4 +119,5 @@ input{
 legend{
     font-size: 28px;
     font-weight: bolder;
+    padding-bottom: 15px;
 }
