@@ -1,0 +1,55 @@
+body{
+    background-color: #191414;
+    font-family: Montserrat;
+    color: whitesmoke;
+}
+
+div.navbar>ul{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+ul{
+    display: flex;
+    position: fixed;
+    width: 100%;
+    list-style-type: none;
+    margin: 0; padding: 0;
+    top: 0%;
+    left: 0%;
+    overflow: hidden;
+    background-color: #333;
+}
+
+ul>div{
+    flex: 2;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+li.naslov{
+    margin: 10px;
+}
+
+a.naslov{
+    font-size: 30px;
+    color: green;
+}
+
+li>a{
+    height: 41%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    padding: 8px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover{
+    background-color: #111;
+}
