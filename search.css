@@ -62,7 +62,7 @@ div.searchBar{
     padding: 40px;
     flex-direction: row;
     margin: auto;
-    margin-top: 5%;
+    margin-top: 10%;
     width:70%;
     align-items: center;
     gap: 10px;
@@ -100,3 +100,29 @@ div.searchResults{
     margin-top: 5%;
     width: 80%;
 }
+
+@media (max-width: 600px) {
+    a.naslov{
+        font-size: 15px;
+        color: green;
+    }
+
+    div.searchBar{
+        margin-top: 12%;
+    }
+
+    li>a{
+        height: 41%;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        padding: 8px;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: bold;
+    }
+    
+}   

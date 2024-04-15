@@ -64,15 +64,18 @@ div.form_flexcont{
 }
 
 div.login_form{
+    box-sizing: border-box;
     display: flex;
-    width: inherit;
-    padding: 50px;
+    width: 30%;
+    height: 55%;
     justify-content: center;
     background-color: #333;
     border-radius: 10px;
+    align-items: center;
 } 
 
 div.login_form>form{
+    width: 80%;
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -80,23 +83,26 @@ div.login_form>form{
 }
 
 form>label.labela{
-    align-self: baseline;
+    align-self: flex-start;
 }
 
 div.register_form{   
-    border-radius: 10px;
-    padding: 50px;
+    box-sizing: border-box;
     display: flex;
+    width: 30%;
+    height: 55%;
     justify-content: center;
-    width: inherit;
     background-color: #333;
+    border-radius: 10px;
+    align-items: center;
 }
 
-div.register_form>form{
-    gap: 10px;
+div.register_form>form{ 
+    width: 80%;
     align-items: center;
     display: flex;
     flex-direction: column;
+    gap: 10px;
 }
 
 div>form>button{
@@ -113,14 +119,51 @@ div>form>button{
 }
 
 input{
-    width: 300px;
+    width: 100%;
     border-radius: 5px;
     height: 27px;
 }
-
 
 legend{
     font-size: 28px;
     font-weight: bolder;
     padding-bottom: 15px;
+}
+
+@media (max-width: 600px) {
+
+    div.form_flexcont{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        margin-top: 17%;
+        height: 90vh;
+        gap: 15px;
+    }
+    
+
+    a.naslov{
+        font-size: 15px;
+        color: green;
+    }
+
+    li>a{
+        height: 41%;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        padding: 8px;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: bold;
+    }
+    
+    div.register_form, div.login_form{
+        width: 80%;
+    }
+
 }

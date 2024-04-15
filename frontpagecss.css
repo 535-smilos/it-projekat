@@ -23,7 +23,6 @@ div.kartice{
     border-radius: 5px;
     gap: 50px;
     justify-content: space-around;
-    background-color: cadetblue;
     padding: 20px;
     flex-direction: row;
 }
@@ -97,4 +96,47 @@ li>a{
 
 li a:hover{
     background-color: #111;
+}
+
+@media (max-width: 600px) {
+    div.kartice{
+        display: flex;
+        border-radius: 5px;
+        gap: 50px;
+        justify-content: space-around;
+        padding: 20px;
+        flex-direction: column;
+    }
+
+    a.naslov{
+        font-size: 15px;
+        color: green;
+    }
+
+    li>a{
+        height: 41%;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        padding: 8px;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: bold;
+    }
+    
+    ul{
+        display: flex;
+        position: fixed;
+        width: 100%;
+        list-style-type: none;
+        margin: 0; padding: 0;
+        top: 0%;
+        left: 0%;
+        overflow: hidden;
+        background-color: #333;
+    }
+    
 }
