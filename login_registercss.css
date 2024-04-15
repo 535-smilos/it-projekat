@@ -76,11 +76,22 @@ div.login_form{
 
 div.login_form>form{
     width: 80%;
+    height: 90%;
     align-items: center;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    justify-content: space-around;
+    gap: 7px;
 }
+
+div.login_form label{
+    margin-top: 40px;
+}
+
+div.register_form label{
+    margin-top: 10px;
+}
+
 
 form>label.labela{
     align-self: flex-start;
@@ -97,12 +108,14 @@ div.register_form{
     align-items: center;
 }
 
-div.register_form>form{ 
+div.register_form>form{
     width: 80%;
+    height: 90%;
     align-items: center;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 7px;
+    justify-content: space-around;
 }
 
 div>form>button{
@@ -163,7 +176,10 @@ legend{
     }
     
     div.register_form, div.login_form{
+        height: 90%;
         width: 80%;
     }
+
+
 
 }
