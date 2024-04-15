@@ -31,6 +31,9 @@ ul>div{
 
 li.naslov{
     margin: 10px;
+}
+
+a.naslov{
     font-size: 30px;
     color: green;
 }
