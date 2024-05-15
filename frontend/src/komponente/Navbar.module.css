@@ -1,0 +1,86 @@
+ul.navbarList{
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    width: 100%;
+    list-style-type: none;
+    margin: 0; padding: 0;
+    top: 0%;
+    left: 0%;
+    overflow: hidden;
+    background-color: #333;
+}
+
+.register{
+    background-color: green;
+}
+
+.register:hover{
+    background-color: rgb(1, 67, 1);
+}
+
+ul.navbarList>div{
+    flex: 2;
+    display: flex;
+    align-items: center;
+}
+
+div>li>a{
+    height: 41%;
+    padding-top: 17px;
+}
+
+a.naslov{
+    font-size: 30px;
+    color: green;
+}
+
+li>a{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    padding: 0px;
+    color: white;
+    text-align: center;
+    padding: 15px 16px;
+    text-decoration: none;
+}
+
+
+li a:hover{
+    background-color: #111;
+}
+
+
+@media (max-width: 600px) {
+    a.naslov{
+        font-size: 20px;
+        color: green;
+    }
+
+    li>a{
+        height: 41%;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        color: white;
+        text-align: center;
+        padding: 15px 16px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    ul{
+        display: flex;
+        position: fixed;
+        width: 100%;
+        list-style-type: none;
+        margin: 0; padding: 0;
+        top: 0%;
+        left: 0%;
+        overflow: hidden;
+        background-color: #333;
+    }
+}

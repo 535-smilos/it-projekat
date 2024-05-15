@@ -1,0 +1,115 @@
+body{
+    background-color: #191414;
+    font-family: Montserrat;
+    color: whitesmoke;
+}
+
+div.form_flexcont{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 3%;
+    height: 100vh;
+}
+
+a{
+    color: rgb(1, 179, 1);
+}
+
+div.register_form{
+    box-sizing: border-box;
+    display: flex;
+    width:35%;
+    height: 60%;
+    justify-content: center;
+    background-color: #333;
+    border-radius: 10px;
+    align-items: center;
+} 
+
+div.register_form>form{
+    width: 80%;
+    height: 95%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 5px;
+}
+
+div.register_form label{
+    margin-top: 20px;
+}
+
+form>label.labela{
+    align-self: flex-start;
+}
+
+div>form>button{
+    background-color: bisque;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bolder;
+    font-family: montserrat;
+    border: none;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+input{
+    width: 100%;
+    border-radius: 5px;
+    height: 27px;
+}
+
+legend{
+    font-size: 28px;
+    font-weight: bolder;
+    padding-top: 5%;
+    padding-bottom: 0px;
+}
+
+@media (min-width:600px) and (max-width:1000px){
+    div.register_form{
+        height: 70%;
+        width: 55%;
+    }
+
+    legend{
+        padding-top: 5%;
+    }
+}
+
+@media (max-width: 600px) {
+    div.form_flexcont{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        margin-top: 17%;
+        height: 90vh;
+    }
+    
+    div.register_form{
+        height: 70%;
+        width: 80%;
+    }
+    
+    div.register_form>form{
+        width: 90%;
+        height: 95%;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        gap: 1px;
+    }
+    
+    
+
+}

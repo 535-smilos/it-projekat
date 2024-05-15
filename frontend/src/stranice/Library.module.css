@@ -1,0 +1,9 @@
+body{
+    background-color: #191414;
+    font-family: Montserrat;
+    color: whitesmoke;
+}
+
+@media (max-width: 600px) {
+    
+}

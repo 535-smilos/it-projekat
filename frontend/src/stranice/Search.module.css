@@ -1,0 +1,102 @@
+body{
+    background-color: #191414;
+    font-family: Montserrat;
+    color: whitesmoke;
+}
+
+::-webkit-scrollbar{
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb{
+    background-color: gray;
+}
+
+::-webkit-scrollbar-track{
+    background-color: rgb(193, 193, 193);
+}
+
+div.searchBar{
+    background-color: #333;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    padding: 30px;
+    flex-direction: row;
+    margin: auto;
+    margin-top: 10%;
+    width:70%;
+    align-items: center;
+    gap: 10px;
+}
+
+input#searchText{
+    width: 100%;
+    height: 30px;
+    border-radius: 20px;
+    font-size: inherit;
+}
+
+label.SearchLabel{
+    font-size: 28px;
+    font-weight: bolder;
+}
+
+button.buttonSearch{
+    width: 20%;
+    height: 100%;
+    font-size: 20px;
+    border-radius: 20px;
+}
+
+button.buttonSearch:hover{
+    background-color: darkgrey;
+}
+
+div.searchResults{
+    background-color: antiquewhite;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 5%;
+    width: 80%;
+    height: 350px;
+}
+
+div.ResultContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #333;
+    width: 100%;
+    height: inherit;
+    border-radius: 5px;
+    overflow-y: auto;
+}
+
+ul.ListOfResults{
+    height: inherit;
+    padding: 0;
+    width: inherit;
+}
+
+li.ListItemResult{
+    background-color: aqua;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+
+li.ListItemResult>h5{
+    background-color: #333;
+}
+
+@media (max-width: 600px) {
+    
+    div.searchBar{
+        margin-top: 15%;
+    }
+
+}   
