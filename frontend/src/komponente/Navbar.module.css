@@ -10,6 +10,7 @@ ul.navbarList{
     left: 0%;
     overflow: hidden;
     background-color: #333;
+    z-index: 999;
 }
 
 .register{

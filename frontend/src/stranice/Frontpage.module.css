@@ -1,7 +1,9 @@
 div.homeContainer{
-    overflow-y: auto;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
 }
-
 
 div.welcome_site{
     border-radius: 5px;
@@ -9,6 +11,7 @@ div.welcome_site{
     margin-top: 80px;
     flex-direction: column;
     align-items: center;
+    width: 90%;
 }
 
 div.kartice{
@@ -18,6 +21,7 @@ div.kartice{
     justify-content: space-around;
     padding: 20px;
     flex-direction: row;
+    width: 90%;
 }
 
 div.kartice>div{
