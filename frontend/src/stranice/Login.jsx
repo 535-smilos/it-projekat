@@ -5,10 +5,7 @@ import Navbar from '../komponente/Navbar'
 const Login = () => {
   return (
     <body>
-      <style>
-        @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
-      </style>
-
+     
       <Navbar/>
 
       <div className={styles.form_flexcont}>

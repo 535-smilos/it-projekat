@@ -13,12 +13,8 @@ ul.navbarList{
     z-index: 999;
 }
 
-.register{
-    background-color: green;
-}
-
 .register:hover{
-    background-color: rgb(1, 67, 1);
+    background-color: green;
 }
 
 ul.navbarList>div{
@@ -37,6 +33,11 @@ a.naslov{
     color: green;
 }
 
+a.naslov:hover{
+    background-color: #111;
+    border-radius: 20px;
+}
+
 li>a{
     display: flex;
     align-items: center;
@@ -51,6 +52,7 @@ li>a{
 
 li a:hover{
     background-color: #111;
+    border-radius: 15px;
 }
 
 

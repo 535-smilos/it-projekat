@@ -1,9 +1,82 @@
-body{
-    background-color: #191414;
-    font-family: Montserrat;
-    color: whitesmoke;
+.PageContainer{
+    margin-top: 60px;
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
 }
 
-@media (max-width: 600px) {
-    
+.ProfileContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    border-radius: 10px;
+    width: 90%;
 }
+
+.ProfileInfo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.ProfileImage{
+    height: 180px;
+    width: 180px;
+    border-radius: 25%;
+    object-fit: cover;
+    padding-right: 50px;
+}
+
+.username{
+    display: flex;
+    flex-direction: column;
+}
+
+.name{
+    display: flex;
+    font-size: 50px;
+    font-weight: 800;
+    margin-bottom: 0;
+}
+
+.numofsongs{
+    font-size: 20px;
+    margin-top: 0;
+}
+
+.changePFP{
+}
+
+.SongsContainer{
+    display: flex;
+    justify-content: center;
+}
+
+.SongList{
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    justify-content: flex-start;
+    width: 90%;
+    gap: 10px 10px;
+}
+
+.SongItem{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #333;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.SongItem>h4,h5{
+    margin: 0;
+}
+

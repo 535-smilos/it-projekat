@@ -5,10 +5,8 @@ import Navbar from "../komponente/Navbar"
 
 const Register = () => {
   return (
-    <body>
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
-    </style>
+    <>
+   
 
     <Navbar/>
 
@@ -27,6 +25,9 @@ const Register = () => {
                   <label for="registerpass" className={styles.labela}>Password</label>
                   <input type="password" name="registerpass" id="registerpass"/>
                   
+                  <label for="pfp" className={styles.labela}>Upload profile image</label>
+                  <input type="file" name="pfp" id="pfp"/>
+                  
                   <button type="button">REGISTER</button>
               <p>Have an account?  <a href="../login">Login</a></p>
               </form> 
@@ -34,7 +35,7 @@ const Register = () => {
           </div>
     </div>
 
-  </body>
+  </>
   )
 }
 

@@ -7,10 +7,8 @@ body{
 div.form_flexcont{
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    margin-top: 3%;
-    height: 100vh;
+    justify-content: center;
+    margin-top: 25vh;
 }
 
 a{

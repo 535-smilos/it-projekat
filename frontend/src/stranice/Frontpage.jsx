@@ -1,38 +1,19 @@
 import React from 'react'
 import styles from "./Frontpage.module.css"
 import Navbar from "../komponente/Navbar"
+import Player from '../komponente/Player'
 const Frontpage = () => {
     return (
         <>
-            <style>
-                @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
-            </style>
-
             <Navbar />
 
             <div className={styles.homeContainer}>
                 <div style={{ "background-color": "#202020", "color": "whitesmoke" }} className={styles.welcome_site}>
 
                     <div>
-                        <h1>Welcome to the ojd!</h1>
+                        <h1>Welcome to the <span style={{"color":"green"}}>SoundSphere</span>!</h1>
                     </div>
 
-                    <div>
-                        <p>OVo je moj pokusaj sajta</p>
-                    </div>
-                    <div>
-                        <p> da kreiram spotify raspali</p>
-                    </div>
-                    <div>
-                        <p>ne znam nista da napravim pa da vidimo mogu li mu sta</p>
-                    </div>
-                    <div>
-                        <p>brodski podovi morski plodovi</p>
-                    </div>
-
-                    <div>
-                        <p>dodati dolje footer za plejer!</p>
-                    </div>
                 </div>
 
                 <br /><br />
@@ -56,6 +37,7 @@ const Frontpage = () => {
                 </div>
 
             </div>
+            <Player/>
         </>
     )
 }
