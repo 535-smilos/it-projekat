@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from "./Library.module.css"
 import Navbar from "../komponente/Navbar"
+import Player from '../komponente/Player'
 
 const Library = () => {
   return (
@@ -176,6 +177,7 @@ const Library = () => {
           </ul>
         </div>
       </div>
+      <Player/>
     </>
   )
 }

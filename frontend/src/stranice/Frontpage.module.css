@@ -1,20 +1,34 @@
-div.homeContainer{
+body{
+    margin: 0;
+}
+
+.FrontpageContainer {
+    height: 100vh;
+}
+
+div.homeContainer {
     display: flex;
     width: 100%;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
-div.welcome_site{
+div.welcome_site {
     border-radius: 5px;
     display: flex;
     margin-top: 80px;
     flex-direction: column;
     align-items: center;
     width: 90%;
+    justify-content: center;
 }
 
-div.kartice{
+h1{
+    text-align: center;
+}
+
+div.kartice {
     display: flex;
     border-radius: 5px;
     gap: 50px;
@@ -24,8 +38,8 @@ div.kartice{
     width: 90%;
 }
 
-div.kartice>div{
-    color:whitesmoke;
+div.kartice>div {
+    color: whitesmoke;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
@@ -34,11 +48,12 @@ div.kartice>div{
     background-color: #352b2b;
 }
 
-div.kartice>div>h2, p{
+div.kartice>div>h2,
+p {
     text-align: center;
 }
 
-div.kartice>div>button{
+div.kartice>div>button {
     background-color: bisque;
     height: 50px;
     border: none;
@@ -54,7 +69,7 @@ div.kartice>div>button{
 
 
 @media (max-width: 600px) {
-    div.kartice{
+    div.kartice {
         display: flex;
         border-radius: 5px;
         gap: 50px;

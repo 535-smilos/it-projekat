@@ -4,7 +4,7 @@ import Navbar from "../komponente/Navbar"
 import Player from '../komponente/Player'
 const Frontpage = () => {
     return (
-        <>
+        <div className={styles.FrontpageContainer}>
             <Navbar />
 
             <div className={styles.homeContainer}>
@@ -38,7 +38,7 @@ const Frontpage = () => {
 
             </div>
             <Player/>
-        </>
+        </div>
     )
 }
 
