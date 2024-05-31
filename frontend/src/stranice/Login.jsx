@@ -17,7 +17,7 @@ const Login = () => {
   }
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault();///--------------------------------popraviti ovaj login!!! i provjeriti register!!!!
     setErrors(Validation(values));
     if(errors.email==="" && errors.password===""){
       axios.post("http://localhost:8800/api/users", values)
