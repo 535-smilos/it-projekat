@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
 
 //--------------------ZANR
 //uzima sve zanrove
-app.get("/genres", (req, res) => {
+app.get("/api/genres", (req, res) => {
     const q = "select * from zanr";
     db.query(q, (err, data) => {
         if (err) return res.json(err);
@@ -27,7 +27,7 @@ app.get("/genres", (req, res) => {
 });
 
 //uzima zanr po ID-ju zanra!!!
-app.get("/genres/:id", (req, res) => {
+app.get("/api/genres/:id", (req, res) => {
     const q = "select * from zanr where id=?";
     const { id } = req.params;
     db.query(q, [id], (err, data) => {
@@ -37,7 +37,7 @@ app.get("/genres/:id", (req, res) => {
 });
 
 //dodaje zanr
-app.post("/genres", (req, res) => {
+app.post("/api/genres", (req, res) => {
     const q = "insert into zanr (`naziv`) VALUES (?)";
     const value = [req.body.naziv];
     db.query(q, value, (err, data) => {
@@ -47,7 +47,7 @@ app.post("/genres", (req, res) => {
 });
 
 //brise zanr, mada samo one koji nisu uvezani sa pjesmom!!!
-app.delete("/genres/:id", (req, res) => {
+app.delete("/api/genres/:id", (req, res) => {
     const q = "DELETE FROM zanr WHERE id = ?";
     const value = [req.params.id];
     db.query(q, value, (err, data) => {
@@ -58,7 +58,7 @@ app.delete("/genres/:id", (req, res) => {
 });
 
 //azurira ime postojeceg zanra po id-ju zanra!!!
-app.put("/genres/:id", (req, res) => {
+app.put("/api/genres/:id", (req, res) => {
     const { naziv } = req.body;
     const { id } = req.params;
     const q = "UPDATE ZANR SET naziv = ? WHERE ID = ?";
@@ -70,7 +70,7 @@ app.put("/genres/:id", (req, res) => {
 
 //--------------------PJESMA
 //uzmi sve pjesme!!!
-app.get("/songs", (req, res) => {
+app.get("/api/songs", (req, res) => {
     const q = "select * from pjesma";
     db.query(q, (err, data) => {
         if (err) return res.json(err);
@@ -79,17 +79,17 @@ app.get("/songs", (req, res) => {
 });
 
 //kreiraj pjesmu
-app.post("/songs", (req, res) => {
-    const { naziv, url, ocjena, trajanje, lajkovano, zanr_id } = req.body;
-    const q = "INSERT INTO PJESMA (naziv, url, ocjena, trajanje, Lajkovano, zanr_id) VALUES (?, ?, ?, ?, ?, ?)";
-    db.query(q, [naziv, url, ocjena, trajanje, lajkovano, zanr_id], (err, data) => {
+app.post("/api/songs", (req, res) => {
+    const { naziv, url, ocjena, trajanje, zanr_id } = req.body;
+    const q = "INSERT INTO PJESMA (naziv, url, ocjena, trajanje, zanr_id) VALUES (?, ?, ?, ?, ?)";
+    db.query(q, [naziv, url, ocjena, trajanje, zanr_id], (err, data) => {
         if (err) return res.json(err);
         return res.json("Pjesma dodata!");
     });
 });
 
 //uzmi pjesmu po njenom ID-ju
-app.get("/songs/:id", (req, res) => {
+app.get("/api/songs/:id", (req, res) => {
     const { id } = req.params;
     const q = "SELECT * FROM PJESMA WHERE ID=?";
     db.query(q, [id], (err, data) => {
@@ -99,18 +99,18 @@ app.get("/songs/:id", (req, res) => {
 });
 
 //azuriraj podatke pjesme koja se vadi po ID-ju pjesme!!!
-app.put("/songs/:id", (req, res) => {
+app.put("/api/songs/:id", (req, res) => {
     const { id } = req.params;
-    const { naziv, url, ocjena, trajanje, Lajkovano, zanr_id } = req.body;
-    const q = "UPDATE PJESMA SET naziv = ?, url = ?, ocjena = ?, trajanje = ?, Lajkovano = ?, zanr_id = ? WHERE ID = ?";
-    db.query(q, [naziv, url, ocjena, trajanje, Lajkovano, zanr_id, id], (err, data) => {
+    const { naziv, url, ocjena, trajanje, zanr_id } = req.body;
+    const q = "UPDATE PJESMA SET naziv = ?, url = ?, ocjena = ?, trajanje = ?, zanr_id = ? WHERE ID = ?";
+    db.query(q, [naziv, url, ocjena, trajanje, zanr_id, id], (err, data) => {
         if (err) return res.json(err);
         return res.json("Pjesma azurirana!");
     });
 });
 
 //brisanje pjesme po ID-ju!!!
-app.delete("/songs/:id", (req, res) => {
+app.delete("/api/songs/:id", (req, res) => {
     const { id } = req.params;
     const q = "DELETE from pjesma where ID=?";
     db.query(q, [id], (err, data) => {
@@ -119,9 +119,9 @@ app.delete("/songs/:id", (req, res) => {
     });
 });
 
-//--------------------PJESMA
+//--------------------KORISNIK
 //kreiraj korisnika
-app.post("/users", (req, res) => {
+app.post("/api/users", (req, res) => {
     const { username, password, slika, email, je_admin } = req.body;
     const q = "insert into korisnik (username, password, slika, email, je_admin) values (?,?,?,?,?)";
     db.query(q, [username, password, slika, email, je_admin], (err, data) => {
@@ -131,7 +131,7 @@ app.post("/users", (req, res) => {
 });
 
 //izlistaj sve korisnike
-app.get("/users", (req, res) => {
+app.get("/api/users", (req, res) => {
     const q = "SELECT * from korisnik";
     db.query(q, (err, data) => {
         if (err) return res.json(err);
@@ -140,7 +140,7 @@ app.get("/users", (req, res) => {
 });
 
 //izlistaj korisnika po usernamu
-app.get("/users/:username", (req, res) => {
+app.get("/api/users/:username", (req, res) => {
     const { username } = req.params;
     const q = "select * from korisnik where username=?";
     db.query(q, [username], (err, data) => {
@@ -150,7 +150,7 @@ app.get("/users/:username", (req, res) => {
 });
 
 //azuriraj korisnika koji se dobija preko usernama!!!
-app.put("/users/:username", (req, res) => {
+app.put("/api/users/:username", (req, res) => {
     const { username } = req.params;
     const { password, slika, email, je_admin } = req.body;
     const q = "update korisnik set password=?, slika=?, email=?, je_admin=? where username=?";
@@ -161,7 +161,7 @@ app.put("/users/:username", (req, res) => {
 });
 
 //brisi korsnika koji se dobija preko usernama!!!
-app.delete("/users/:username", (req, res) => {
+app.delete("/api/users/:username", (req, res) => {
     const { username } = req.params;
     const q = "delete from korisnik where username=?";
     db.query(q, [username], (err, data) => {
@@ -170,9 +170,50 @@ app.delete("/users/:username", (req, res) => {
     });
 });
 
-//--------PJESMA_KORISNIK-------(library)
+//---------------IZVODJAC
+//uzmi sve izvodjace
+app.get("/api/artists",(req, res)=>{
+    const q="select * from izvodjac";
+    db.query(q, (err, data)=>{
+        if(err) return res.json(err);
+        return res.json(data);
+    });
+});
+
+//dodaj izvodjaca
+app.post("/api/artists", (req, res)=>{
+    const {ime}=req.body;
+    const q="insert into izvodjac (ime) values (?)";
+    db.query(q, [ime], (err, data)=>{
+        if(err) return res.json(err);
+        return res.json("Uspjesno kreiran korisnik!");
+    });
+});
+
+//azuriraj ime izvodjaca po njegovom imenu, ovo mora sve preko body-ja(nece url da primi razmak)!!!
+app.put("/api/artists",(req, res)=>{
+    const {staro_ime, novo_ime}=req.body;
+    const q="update izvodjac set ime=? where ime=?";
+    db.query(q, [novo_ime, staro_ime], (err, data)=>{
+        if(err) return res.json(err);
+        if(data.affectedRows===0) return res.status(404).json("Izvodjac ne postoji!");
+        return res.json("Uspjesno preimenovan korisnik!");
+    });
+});
+
+//izbrisi izvodjaca, ponovo se navodi u body ime jer url i razmak
+app.delete("/api/artists", (req, res)=>{
+    const {ime}=req.body;
+    const q="DELETE from izvodjac where ime=?";
+    db.query(q, [ime], (err, data)=>{
+        if(err) return res.json(err);
+        return res.json("Uspjesno obrisan izvodjac!");
+    });
+});
+
+//---------------PJESMA_KORISNIK(library)
 //uzmi pjesme korisnika koje se nalaze u library-ju, tj koje je on lajkovao
-app.get("/library/:username", (req, res) => {
+app.get("/api/library/:username", (req, res) => {
     const { username } = req.params;
     const q = `
         SELECT PJESMA.*
@@ -186,8 +227,8 @@ app.get("/library/:username", (req, res) => {
     });
 });
 
-//lajkuj pjesmu, tj za datog korisnika za neku pjesmu ubaci u pjesma_korisnik
-app.post("/library/:username/:song_id", (req, res) => {
+//lajkuj pjesmu, tj za datog korisnika za neku pjesmu ubaci u pjesma_korisnik(library)
+app.post("/api/library/:username/:song_id", (req, res) => {
     const { username, song_id } = req.params;
     const { ocjena } = req.body; //opciono
 
@@ -224,7 +265,7 @@ app.post("/library/:username/:song_id", (req, res) => {
 });
 
 //vrati broj lajkovanih pjesama za korisnika
-app.get("/library/:username/count", (req, res) => {
+app.get("/api/library/:username/count", (req, res) => {
     const { username } = req.params;
     const q = `
             select count(*) as LikedCnt
@@ -238,7 +279,7 @@ app.get("/library/:username/count", (req, res) => {
     });
 });
 
-//azuriraj neku globalnu ocjenu za neku pjesmu, to je u atributu pjesme
+//azuriraj neku globalnu ocjenu za neku pjesmu, to je u atributu pjesme, ima vec gore u songs da se azuriraju citavi podaci
 /*
 app.put("/songs/ocjena/:song_id", (req, res) => {
     const { song_id } = req.params;
@@ -252,7 +293,7 @@ app.put("/songs/ocjena/:song_id", (req, res) => {
 });*/
 
 //azuriraj ocjenu pjesme za korisnika u library-ju
-app.put("/library/:username/:song_id", (req, res) => {
+app.put("/api/library/:username/:song_id", (req, res) => {
     const { username, song_id } = req.params;
     const { ocjena }=req.body;
 
@@ -275,7 +316,7 @@ app.put("/library/:username/:song_id", (req, res) => {
 });
 
 //dislajkuj pjesmu za korisnika, brise se objekat tabele pjesma_korisnik
-app.delete("/library/:username/:song_id", (req, res) => {
+app.delete("/api/library/:username/:song_id", (req, res) => {
     const { username, song_id } = req.params;
 
     const deleteLikeQuery = "DELETE FROM PJESMA_KORISNIK WHERE id_pjesma = ? AND korisnik_username = ?";
@@ -285,9 +326,57 @@ app.delete("/library/:username/:song_id", (req, res) => {
     });
 });
 
+//prikazi ocjenu za datu pjesmu od datog korisnika!!!
+app.get("/api/library/ocjena/:username/:song_id",(req, res)=>{
+    const {username, song_id}=req.params;
+    const q="select ocjena from pjesma_korisnik where id_pjesma=? and korisnik_username=?";
+    db.query(q, [song_id, username], (err, data)=>{
+        if(err) return res.json(err);
+        if(data.length===0) return res.status(404).json("Ne postoji ocjena za ovu pjesmu od korisnika!");
+        return res.json(data[0]);
+    });
+});
 
-//--------PJESMA_IZVODJAC-------(izvodi)
 
+//--------PJESMA_IZVODJAC-------(izvodi) NAPOMENA: sve parametre stavljamo u body zahtjeva!
+//vrati sve izvodjace sa njihovim pjesmama
+app.get("/api/performs",(req, res)=>{
+    const q="select * from pjesma_izvodjac";
+    db.query(q, (err, data)=>{
+        if(err) return res.json(err);
+        return res.json(data);
+    });
+});
+
+//vrati izvodjaceve pjesme tako da vrati citav objekat pjesme!
+app.get("/api/performs/song", (req, res)=>{
+    const {izvodjac}=req.body;
+    const q="SELECT ID,naziv,url,ocjena,trajanje,zanr_id from pjesma p INNER JOIN pjesma_izvodjac pi ON pi.id_pjesma=p.ID WHERE pi.ime_izvodjac=?";
+    db.query(q, [izvodjac], (err, data)=>{
+        if(err) return res.json(err);
+        return res.json(data);
+    });
+});
+
+//uveži izvodjaca sa pjesmom
+app.post("/api/performs", (req, res)=>{
+    const {song_id, izvodjac}=req.body;
+    const q="INSERT into pjesma_izvodjac (id_pjesma, ime_izvodjac) values (?,?)";
+    db.query(q, [song_id, izvodjac], (err, data)=>{
+        if(err) return res.json(err);
+        return res.json("Uspjesno uvezani izvodjac i pjesma!");
+    });
+});
+
+//izbrisati vezu pjesme i izvodjaca
+app.delete("/api/performs", (req, res)=>{
+    const {song_id, izvodjac}=req.body;
+    const q="DELETE from pjesma_izvodjac where id_pjesma=? and ime_izvodjac=?";
+    db.query(q, [song_id, izvodjac], (err, data)=>{
+        if(err) return res.json(err);
+        return res.json("Uspjesno izbrisana veza pjesme i izvodjaca!");
+    });
+});
 
 
 app.listen(8800, () => {
