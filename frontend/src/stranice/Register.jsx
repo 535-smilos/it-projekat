@@ -1,41 +1,67 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from "./Register.module.css"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Navbar from "../komponente/Navbar"
+import Validation from '../RegisterValidation'
+import axios from "axios";
 
 const Register = () => {
+
+  const [values, setValues] = useState({
+    username: '', email: '', password: '', image: ''
+  });
+
+  const [errors, setErrors] = useState({});
+
+  const handleInput = (e) => {
+    setValues(prev => ({ ...prev, [e.target.name]: [e.target.value] }))
+  }
+
+  const navigate=useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setErrors(Validation(values));
+    if(errors.username==="" && errors.email==="" && errors.password===""){
+      axios.post("http://localhost:8800/api/users", values)
+      .then(res=>{
+        navigate("/login");
+      }).catch(err=>console.log(err));
+    }
+  };
+
   return (
     <>
-   
+      <Navbar />
+      <div className={styles.form_flexcont}>
+        <div className={styles.register_form}>
+          <form onSubmit={handleSubmit}>
+            <legend>Register:</legend>
 
-    <Navbar/>
+            <label for="registeruser" className={styles.labela}>Username</label>
+            <input type="text" name="username" id="registeruser" onChange={handleInput} />
+            {errors.username && <span>{errors.username}</span>}
 
-    <div className={styles.form_flexcont}>
+            <label for="registermail" className={styles.labela} >Email</label>
+            <input type="email" name="email" id="registermail" onChange={handleInput} />
+            {errors.email && <span>{errors.email}</span>}
 
-      <div className={styles.register_form}>
-              <form action="">
-                  <legend>Register:</legend>
+            <label for="registerpass" className={styles.labela}>Password</label>
+            <input type="password" name="password" id="registerpass" onChange={handleInput} />
+            {errors.password && <span>{errors.password}</span>}
 
-                  <label for="registeruser" className={styles.labela}>Username</label>
-                  <input type="text" name="registeruser" id="registeruser"/>
+            <label for="pfp" className={styles.labela}>Upload profile image</label>
+            <input type="file" name="image" id="pfp" onChange={handleInput} />
+            {errors.image && <span>{errors.image}</span>}
 
-                  <label for="registermail" className={styles.labela} >Email</label>
-                  <input type="email" name="registermail" id="registermail"/>
-                  
-                  <label for="registerpass" className={styles.labela}>Password</label>
-                  <input type="password" name="registerpass" id="registerpass"/>
-                  
-                  <label for="pfp" className={styles.labela}>Upload profile image</label>
-                  <input type="file" name="pfp" id="pfp"/>
-                  
-                  <button type="button">REGISTER</button>
-              <p>Have an account?  <a href="../login">Login</a></p>
-              </form> 
+            <button type="submit">REGISTER</button>
+            <p>Have an account?  <Link to={"../login"}>Login</Link></p>
+          </form>
 
-          </div>
-    </div>
+        </div>
+      </div>
 
-  </>
+    </>
   )
 }
 

@@ -1,7 +1,8 @@
 import express from "express";
 import mysql from "mysql";
+import cors from "cors";
 
-const app = express();
+const app=express();
 
 const db = mysql.createConnection({
     host: "localhost",
@@ -11,6 +12,7 @@ const db = mysql.createConnection({
 });
 
 app.use(express.json());
+app.use(cors());
 
 app.get("/", (req, res) => {
     res.json("HEllo this is bekend!");
@@ -120,7 +122,7 @@ app.delete("/api/songs/:id", (req, res) => {
 });
 
 //--------------------KORISNIK
-//kreiraj korisnika
+//kreiraj korisnika(REGISTER!!!)
 app.post("/api/users", (req, res) => {
     const { username, password, slika, email, je_admin } = req.body;
     const q = "insert into korisnik (username, password, slika, email, je_admin) values (?,?,?,?,?)";
@@ -169,6 +171,8 @@ app.delete("/api/users/:username", (req, res) => {
         return res.json("Uspjesno obrisan korisnik!");
     });
 });
+
+
 
 //---------------IZVODJAC
 //uzmi sve izvodjace
