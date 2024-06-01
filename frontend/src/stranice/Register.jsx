@@ -23,7 +23,7 @@ const Register = () => {
     e.preventDefault();
     setErrors(Validation(values));
     if(errors.username==="" && errors.email==="" && errors.password===""){
-      axios.post("http://localhost:8800/api/users", values)
+      axios.post("http://localhost:8800/api/users/register", values)
       .then(res=>{
         navigate("/login");
       }).catch(err=>console.log(err));

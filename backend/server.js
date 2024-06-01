@@ -1,6 +1,8 @@
 import express from "express";
 import mysql from "mysql";
 import cors from "cors";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const app=express();
 
@@ -10,6 +12,22 @@ const db = mysql.createConnection({
     password: "535170milos",
     database: "soundsphere"
 });
+
+const jwtSecretKey = 'your_jwt_secret_key';
+
+// Middleware for authenticating token and checking admin privileges
+const authenticateToken = (req, res, next) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+
+    if (token == null) return res.sendStatus(401);
+
+    jwt.verify(token, jwtSecretKey, (err, user) => {
+        if (err) return res.sendStatus(403);
+        req.user = user;
+        next();
+    });
+};
 
 app.use(express.json());
 app.use(cors());
@@ -123,12 +141,32 @@ app.delete("/api/songs/:id", (req, res) => {
 
 //--------------------KORISNIK
 //kreiraj korisnika(REGISTER!!!)
-app.post("/api/users", (req, res) => {
+app.post("/api/users/register", async (req, res) => {
     const { username, password, slika, email, je_admin } = req.body;
-    const q = "insert into korisnik (username, password, slika, email, je_admin) values (?,?,?,?,?)";
-    db.query(q, [username, password, slika, email, je_admin], (err, data) => {
-        if (err) return res.json(err);
-        return res.json("Uspjesno kreiran korisnik!");
+    if(!username||!password||!email){
+        return res.status(404).json("Potrebni su svi podaci!");
+    }
+
+    const exists="SELECT * from korisnik where username=? or email=?";
+    db.query(exists, [username, email], async (err, data)=>{
+        if(err) return res.json(err);
+        if(data.length>0) return res.status(400).json("Korisnik vec postoji!");
+        const q = "insert into korisnik (username, password, slika, email, je_admin) values (?,?,?,?,?)";
+        db.query(q, [username, password, slika, email, je_admin], (err, data) => {
+            if (err) return res.json(err);
+            return res.json("Uspjesno kreiran korisnik!");
+        });
+    });
+});
+
+//LOGIN ZA KORISNIKA!!!
+app.post("/api/users/login", (req, res)=>{
+    const {username, password}=req.body;
+    const q="select * from korisnik where username=? and password=?";
+    db.query(q, [username, password], (err, data)=>{
+        if(err) return res.json(err);
+        if(data.length===0) return res.status(404).json("Korisnik nije pronadjen!");
+        res.status(200).json({message:"Uspjesno logovan korisnik!"});
     });
 });
 
@@ -171,7 +209,6 @@ app.delete("/api/users/:username", (req, res) => {
         return res.json("Uspjesno obrisan korisnik!");
     });
 });
-
 
 
 //---------------IZVODJAC
