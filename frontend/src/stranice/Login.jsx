@@ -1,31 +1,35 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import styles from "./Login.module.css"
 import Navbar from '../komponente/Navbar'
 import { Link, useNavigate } from 'react-router-dom'
 import Validation from '../LoginValidation'
 import axios from "axios";
+import { AuthContext } from '../context/authContext'
 
 const Login = () => {
-  const [values, setValues] = useState({
-    username: '', password: ''
+ 
+  
+  const [inputs, setInputs]=useState({
+    username:"", password:""
   });
 
-  const [errors, setErrors] = useState({});
+  const [err, setError]=useState();
 
-  const handleInput = (e) => {
-    setValues(prev => ({ ...prev, [e.target.name]: [e.target.value] }))
+  const handleChange=e=>{
+    setInputs(prev=>({...prev, [e.target.name]:e.target.value}));
   }
 
-  const navigate = useNavigate();
-  //----------POBRINUTI SE ZA TOKENIZACIJU!!!!!!!!!
-  const handleSubmit = (e) => {
+  const navigate=useNavigate();
+
+  const {login}=useContext(AuthContext);
+
+  const handleSubmit= async e=>{
     e.preventDefault();
-    setErrors(Validation(values));
-    if (errors.username === "" && errors.password === "") {
-      axios.post("http://localhost:8800/api/users/login", values)
-        .then(res => {
-          navigate("/frontpage");
-        }).catch(err => alert(err.response.data));
+    try {
+      await login(inputs);
+      navigate("/frontpage");
+    } catch (err) {
+      setError(err.response.data);
     }
   };
 
@@ -34,20 +38,21 @@ const Login = () => {
       <Navbar />
       <div className={styles.form_flexcont}>
         <div className={styles.login_form}>
-          <form onSubmit={handleSubmit}>
+          <form>
             <legend>
               Login:
             </legend>
             <label for="loginmejl" className={styles.labela}>Username</label>
             <input type="text" name="username" id="loginmejl"
-              onChange={handleInput} />
-            {errors.username && <span>{errors.username}</span>}
+              onChange={handleChange} />
+            {/* {errors.username && <span>{errors.username}</span>} */}
 
             <label for="loginpass" className={styles.labela} >Password</label>
             <input type="password" name="password" id="loginpass"
-              onChange={handleInput} />
-            {errors.password && <span>{errors.password}</span>}
-            <button type="submit">LOGIN</button>
+              onChange={handleChange} />
+            {/* {errors.password && <span>{errors.password}</span>} */}
+            {err && <p>{err}</p>}
+            <button onClick={handleSubmit}>LOGIN</button>
             <p>Doesn't have an account?  <Link to={"../register"}>Register</Link></p>
           </form>
         </div>

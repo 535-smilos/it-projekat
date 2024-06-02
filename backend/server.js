@@ -1,8 +1,7 @@
 import express from "express";
 import mysql from "mysql";
 import cors from "cors";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import cookieParser from "cookie-parser";
 
 import songRoutes from "./routes/songs.js";
 import userRoutes from "./routes/users.js";
@@ -21,8 +20,10 @@ export const db = mysql.createConnection({
     database: "soundsphere"
 });
 
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
+app.use(cookieParser());
+
 
 app.use("/api/songs", songRoutes);
 app.use("/api/genres", genreRoutes);

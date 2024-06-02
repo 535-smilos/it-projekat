@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styles from "./Navbar.module.css"
 import { Link } from 'react-router-dom'
+import { AuthContext } from '../context/authContext';
 
 const Navbar = () => {
+
+    const {currentUser, logout}=useContext(AuthContext);
+
+
     return (
         <div className={styles.navbar}>
             <ul className={styles.navbarList} style={{ "height": "50px" }}>
@@ -20,12 +25,21 @@ const Navbar = () => {
                     </li>
 
                 </div>
-                <li>
+
+                <>{currentUser? (
+                    <>
+                <li>{currentUser.username}</li>
+                    {currentUser?<span onClick={logout}>Logout</span>:<Link to={"../login"}>Login</Link>}
+                </>
+                ) : (<><li>
                     <Link to={"../login"}>Login</Link>
                 </li>
                 <li>
                     <Link to={"../register"} className={styles.register}>Register</Link>
-                </li>
+                </li></>)}
+                </>
+                
+               
             </ul>
         </div>
     )

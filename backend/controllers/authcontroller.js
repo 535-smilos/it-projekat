@@ -1,4 +1,7 @@
 import {db} from "../server.js";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+
 
 export const register=async (req, res) => {
     const { username, password, slika, email, je_admin } = req.body;
@@ -10,8 +13,12 @@ export const register=async (req, res) => {
     db.query(exists, [username, email], async (err, data)=>{
         if(err) return res.json(err);
         if(data.length>0) return res.status(400).json("Korisnik vec postoji!");
+
+        const salt=bcrypt.genSaltSync(10);
+        const hashpass=bcrypt.hashSync(password, salt);
+
         const q = "insert into korisnik (username, password, slika, email, je_admin) values (?,?,?,?,?)";
-        db.query(q, [username, password, slika, email, je_admin], (err, data) => {
+        db.query(q, [username, hashpass, slika, email, je_admin], (err, data) => {
             if (err) return res.json(err);
             return res.json("Uspjesno kreiran korisnik!");
         });
@@ -19,13 +26,25 @@ export const register=async (req, res) => {
 };
 
 export const login=(req, res)=>{
-    const {username, password}=req.body;
-    const q="select * from korisnik where username=? and password=?";
-    db.query(q, [username, password], (err, data)=>{
+    const q="select * from korisnik where username=?";
+    db.query(q, [req.body.username], (err, data)=>{
         if(err) return res.json(err);
         if(data.length===0) return res.status(404).json("Korisnik nije pronadjen!");
-        res.status(200).json({message:"Uspjesno logovan korisnik!"});
+
+        //je li sifra dobra?
+        const isPassTrue=bcrypt.compareSync(req.body.password, data[0].password);
+        if(!isPassTrue) return res.status(400).json("Pogresna sifra ili username!");
+
+        //tokenizacija!
+        const token=jwt.sign({username:data[0].username}, "jwtkey");
+        const {password, ...other}=data[0];
+
+        res.cookie("access_token", token, {httpOnly:true}).status(200).json(other);
     });
 };
 
-export const logout=()=>{};
+export const logout=(req, res)=>{
+    res.clearCookie("access_token",{
+        sameSite:"none", secure:true
+    }).status(200).json("Korisnik je izlogovan!");
+};
