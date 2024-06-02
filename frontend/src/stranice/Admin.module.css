@@ -1,0 +1,39 @@
+.adminContainer{
+    margin-top: 80px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column; 
+}
+
+h2{
+    align-self: center;
+}
+
+.adminWrapper{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: center;
+}
+
+.addGenre, .addArtist, .addSong, .addPerformer{
+    background-color: #333;
+    border-radius: 7px;
+    width: 20%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+form{
+    display: flex;
+    width: 90%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+label{
+    align-self: flex-start;
+}
+

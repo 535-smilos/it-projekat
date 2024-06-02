@@ -4,6 +4,7 @@ import Library from "./stranice/Library";
 import Search from "./stranice/Search";
 import Login from "./stranice/Login";
 import Register from "./stranice/Register";
+import Admin from "./stranice/Admin";
 import "./App.css";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Route path="/search" element={<Search/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/register" element={<Register/>}/>
+          <Route path="/admin" element={<Admin/>}/>
         </Routes>
       </BrowserRouter>
     </div>

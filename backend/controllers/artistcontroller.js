@@ -13,7 +13,7 @@ export const addArtist=(req, res)=>{
     const q="insert into izvodjac (ime) values (?)";
     db.query(q, [ime], (err, data)=>{
         if(err) return res.json(err);
-        return res.json("Uspjesno kreiran korisnik!");
+        return res.json("Uspjesno kreiran izvodjac!");
     });
 };
 
@@ -23,7 +23,7 @@ export const updateByName=(req, res)=>{
     db.query(q, [novo_ime, staro_ime], (err, data)=>{
         if(err) return res.json(err);
         if(data.affectedRows===0) return res.status(404).json("Izvodjac ne postoji!");
-        return res.json("Uspjesno preimenovan korisnik!");
+        return res.json("Uspjesno preimenovan izvodjac!");
     });
 };
 
