@@ -39,7 +39,7 @@ export const login=(req, res)=>{
         const token=jwt.sign({username:data[0].username}, "jwtkey");
         const {password, ...other}=data[0];
 
-        res.cookie("access_token", token, {httpOnly:true}).status(200).json(other);
+        res.status(200).json({other, token});
     });
 };
 

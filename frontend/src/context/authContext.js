@@ -8,12 +8,13 @@ export const AuthContextProvider=({children})=>{
 
     const login=async(inputs)=>{
       const res=await axios.post("/users/login", inputs);
-      setCurrentUser(res.data);
+      localStorage.setItem("token", res.data.token);
+      setCurrentUser(res.data.other);
     };
 
     const logout=async(inputs)=>{
-      await axios.post("/users/logout", inputs);
       setCurrentUser(null);
+      localStorage.clear();
     };
 
     useEffect(()=>{

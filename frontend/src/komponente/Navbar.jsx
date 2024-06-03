@@ -1,12 +1,17 @@
 import React, { useContext } from 'react'
 import styles from "./Navbar.module.css"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/authContext';
 
 const Navbar = () => {
 
     const {currentUser, logout}=useContext(AuthContext);
+    const navigate=useNavigate();
 
+    const logoutHandle=()=>{
+        logout();
+        navigate("/login");
+    }
 
     return (
         <div className={styles.navbar}>
@@ -29,7 +34,7 @@ const Navbar = () => {
                 <>{currentUser? (
                     <>
                 <li>{currentUser.username}</li>
-                    {currentUser?<span onClick={logout}>Logout</span>:<Link to={"../login"}>Login</Link>}
+                    {currentUser?<span onClick={logoutHandle}>Logout</span>:<Link to={"../login"}>Login</Link>}
                 </>
                 ) : (<><li>
                     <Link to={"../login"}>Login</Link>
