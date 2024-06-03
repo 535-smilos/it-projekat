@@ -3,8 +3,10 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AuthContextProvider } from './context/authContext';
+import setupInterceptors from './Interceptor.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+setupInterceptors();
 root.render(
   <React.StrictMode>
     <AuthContextProvider>
