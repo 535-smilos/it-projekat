@@ -31,7 +31,7 @@
     padding-right: 50px;
 }
 
-.username{
+.Username{
     display: flex;
     flex-direction: column;
 }
@@ -48,11 +48,12 @@
     margin-top: 0;
 }
 
-
-
 .SongsContainer{
+    width: 90%;
+    height: 400px;
     display: flex;
-    justify-content: center;
+    align-items: flex-start;
+    overflow-y: auto;
 }
 
 .SongList{
@@ -61,8 +62,8 @@
     flex-wrap: wrap;
     list-style: none;
     justify-content: flex-start;
-    width: 90%;
     gap: 10px 10px;
+    width: 100%;
 }
 
 .SongItem{
@@ -72,10 +73,19 @@
     justify-content: center;
     background-color: #333;
     border-radius: 10px;
-    padding: 15px;
+    padding: 25px;
+    width: 10%;
 }
 
 .SongItem>h4,h5{
     margin: 0;
 }
 
+.playercontainer {
+    position: fixed;
+    bottom: 0;
+    left: 25%;
+    width: 50%;
+    background-color: #f0f0f0; /* Example background color */
+    z-index: 10; /* Ensure it's above other content */
+  }

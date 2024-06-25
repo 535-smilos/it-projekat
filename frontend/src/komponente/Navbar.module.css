@@ -13,6 +13,10 @@ ul.navbarList{
     z-index: 999;
 }
 
+li>.username:hover{
+    background-color: green;
+}
+
 .register:hover{
     background-color: green;
 }

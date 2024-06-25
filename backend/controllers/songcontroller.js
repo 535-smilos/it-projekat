@@ -1,7 +1,10 @@
 import {db} from "../server.js";
 
 export const getSongs=(req, res) => {
-    const q = "select * from pjesma";
+    const q = `select pjesma.ID, i.ime_izvodjac, pjesma.naziv, pjesma.url, pjesma.trajanje, pjesma.ocjena , z.naziv as zanr_naziv from pjesma
+    inner join pjesma_izvodjac i on i.id_pjesma=pjesma.ID
+    inner join zanr z on z.ID=pjesma.zanr_id
+    `;
     db.query(q, (err, data) => {
         if (err) return res.json(err);
         return res.json(data);

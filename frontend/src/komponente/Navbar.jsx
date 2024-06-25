@@ -10,7 +10,7 @@ const Navbar = () => {
 
     const logoutHandle=()=>{
         logout();
-        navigate("/login");
+        // navigate("../login");
     }
 
     return (
@@ -32,10 +32,9 @@ const Navbar = () => {
                 </div>
 
                 <>{currentUser? (
-                    <>
-                <li>{currentUser.username}</li>
-                    {currentUser?<span onClick={logoutHandle}>Logout</span>:<Link to={"../login"}>Login</Link>}
-                </>
+                    <li >
+                    <Link className={styles.username} onClick={logoutHandle}to={"../login"}>{currentUser.username}</Link>
+                    </li>
                 ) : (<><li>
                     <Link to={"../login"}>Login</Link>
                 </li>

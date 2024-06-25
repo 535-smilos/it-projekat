@@ -3,10 +3,12 @@ import {db} from "../server.js";
 export const getLikedByUser=(req, res) => {
     const { username } = req.params;
     const q = `
-        SELECT PJESMA.*
-        FROM PJESMA_KORISNIK
-        INNER JOIN PJESMA ON PJESMA_KORISNIK.id_pjesma = PJESMA.ID
-        WHERE PJESMA_KORISNIK.korisnik_username = ?
+    SELECT PJESMA.ID, PJESMA.naziv, PJESMA.url, PJESMA.ocjena, PJESMA.trajanje, IZVODJAC.ime AS artist
+    FROM PJESMA
+    INNER JOIN PJESMA_KORISNIK ON PJESMA.ID = PJESMA_KORISNIK.id_pjesma
+    INNER JOIN PJESMA_IZVODJAC ON PJESMA.ID = PJESMA_IZVODJAC.id_pjesma
+    INNER JOIN IZVODJAC ON PJESMA_IZVODJAC.ime_izvodjac = IZVODJAC.ime
+    WHERE PJESMA_KORISNIK.korisnik_username = ?
     `;
     db.query(q, [username], (err, data) => {
         if (err) return res.json(err);
@@ -25,7 +27,7 @@ export const likeSong=(req, res) => {
         if (userResult.length === 0) return res.status(404).json("Korisnik ne postoji!");
 
         // Check if the song exists
-        const checkSongQuery = "SELECT * FROM PJESMA WHERE ID = ?";
+        const checkSongQuery = "SELECT * FROM PJESMA WHERE PJESMA.ID = ?";
         db.query(checkSongQuery, [song_id], (err, songResult) => {
             if (err) return res.json(err);
 

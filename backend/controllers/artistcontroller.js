@@ -8,6 +8,22 @@ export const getArtists=(req, res)=>{
     });
 };
 
+export const getArtistsNameBySong=(req, res)=>{
+    const songId=req.params;
+    const q=`SELECT IZVODJAC.ime FROM IZVODJAC
+    INNER JOIN PJESMA_IZVODJAC ON IZVODJAC.ime = PJESMA_IZVODJAC.ime_izvodjac
+    WHERE PJESMA_IZVODJAC.id_pjesma = ?`;
+    db.query(q, [songId], (err, results) => {
+        if (err) {
+          return res.status(500).json({ error: 'Internal Server Error' });
+        }
+        if (results.length === 0) {
+          return res.status(404).json({ message: 'No artist found for this song' });
+        }
+        res.json(results[0]);
+    });
+}
+
 export const addArtist=(req, res)=>{
     const {ime}=req.body;
     const q="insert into izvodjac (ime) values (?)";

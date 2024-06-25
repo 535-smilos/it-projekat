@@ -1,142 +1,66 @@
-import React from 'react'
-import styles from "./Search.module.css"
-import Navbar from "../komponente/Navbar"
-
-function ojd(){
-  alert("ojd!");
-}
+import React, { useEffect, useState, useContext } from 'react';
+import styles from "./Search.module.css";
+import Navbar from "../komponente/Navbar";
+import { AuthContext } from '../context/authContext';
+import axios from 'axios';
 
 const Search = () => {
+  const { currentUser } = useContext(AuthContext);
+
+  const [listOfSongs, setListOfSongs] = useState([]);
+
+  const getSongs = async () => {
+    try {
+      const res = await axios.get(`/songs/`);
+      setListOfSongs(res.data);
+      console.log(res.data.map(data=>data.ID));
+    } catch (err) {
+      console.error("Greska pri fetchovanju pjesama!", err);
+    }
+  };
+
+  useEffect(() => {
+    getSongs();
+  }, []);
+
+  const addSongEvent = async (song_id) => {
+    try {
+      console.log(song_id);
+      const res = await axios.post(`/library/${currentUser.username}/${song_id}`);
+      console.log(res.data);
+    } catch (err) {
+      console.error("Greska pri dodavanju!", err);
+    }
+  };
+
   return (
     <>
       <Navbar/>
 
       <div className={styles.searchBar}>
-        <label for="searchText" className={styles.SearchLabel}>Search:</label>
+        <label htmlFor="searchText" className={styles.SearchLabel}>Search:</label>
         <input type="text" name="searchText" id={styles.searchText} />
-        <button type="button" className={styles.buttonSearch} onClick={ojd}>🔎</button>
+        <button type="button" className={styles.buttonSearch}>🔎</button>
       </div>
 
       <div className={styles.searchResults}>
-       <div className={styles.ResultContainer}>
-        <ul className={styles.ListOfResults}>
-          <li className={styles.ListItemResult}>
-            <h5>1rtist</h5>
-            <h5>Song</h5>
-            <h5>Duration</h5>
-            <h5>Genre</h5>
-            <h5>Liked?</h5>
-            <h5>Rating</h5>
-          </li>
-          <li className={styles.ListItemResult}>
-            <h5>2rtist</h5>
-            <h5>Song</h5>
-            <h5>Duration</h5>
-            <h5>Genre</h5>
-            <h5>Liked?</h5>
-            <h5>Rating</h5>
-          </li>
-          <li className={styles.ListItemResult}>
-            <h5>3rtist</h5>
-            <h5>Song</h5>
-            <h5>Duration</h5>
-            <h5>Genre</h5>
-            <h5>Rating</h5>
-            <h5>Liked?</h5>
-          </li>
-          <li className={styles.ListItemResult}>
-            <h5>4rtist</h5>
-            <h5>Song</h5>
-            <h5>Duration</h5>
-            <h5>Genre</h5>
-            <h5>Rating</h5>
-            <h5>Liked?</h5>
-          </li>
-          <li className={styles.ListItemResult}>
-            <h5>5rtist</h5>
-            <h5>Song</h5>
-            <h5>Duration</h5>
-            <h5>Genre</h5>
-            <h5>Rating</h5>
-            <h5>Liked?</h5>
-          </li>
-          <li className={styles.ListItemResult}>
-            <h5>6rtist</h5>
-            <h5>Song</h5>
-            <h5>Duration</h5>
-            <h5>Genre</h5>
-            <h5>Rating</h5>
-            <h5>Liked?</h5>
-          </li>
-          <li className={styles.ListItemResult}>
-            <h5>7rtist</h5>
-            <h5>Song</h5>
-            <h5>Duration</h5>
-            <h5>Genre</h5>
-            <h5>Rating</h5>
-            <h5>Liked?</h5>
-          </li>
-          <li className={styles.ListItemResult}>
-            <h5>8rtist</h5>
-            <h5>Song</h5>
-            <h5>Duration</h5>
-            <h5>Genre</h5>
-            <h5>Rating</h5>
-            <h5>Liked?</h5>
-          </li>
-          <li className={styles.ListItemResult}>
-            <h5>9rtist</h5>
-            <h5>Song</h5>
-            <h5>Duration</h5>
-            <h5>Genre</h5>
-            <h5>Rating</h5>
-            <h5>Liked?</h5>
-          </li>
-          <li className={styles.ListItemResult}>
-            <h5>Artist</h5>
-            <h5>Song</h5>
-            <h5>Duration</h5>
-            <h5>Genre</h5>
-            <h5>Rating</h5>
-            <h5>Liked?</h5>
-          </li>
-          <li className={styles.ListItemResult}>
-            <h5>Artist</h5>
-            <h5>Song</h5>
-            <h5>Duration</h5>
-            <h5>Genre</h5>
-            <h5>Rating</h5>
-            <h5>Liked?</h5>
-          </li>
-          <li className={styles.ListItemResult}>
-            <h5>Artist</h5>
-            <h5>Song</h5>
-            <h5>Duration</h5>
-            <h5>Genre</h5>
-            <h5>Rating</h5>
-            <h5>Liked?</h5>
-          </li>
-          <li className={styles.ListItemResult}>
-            <h5>Artist</h5>
-            <h5>Song</h5>
-            <h5>Duration</h5>
-            <h5>Genre</h5>
-            <h5>Rating</h5>
-            <h5>Liked?</h5>
-          </li>
-          <li className={styles.ListItemResult}>
-            <h5>Artist</h5>
-            <h5>Song</h5>
-            <h5>Duration</h5>
-            <h5>Genre</h5>
-            <h5>Rating</h5>
-            <h5>Liked?</h5>
-          </li>
-        </ul>
-       </div>
+        <div className={styles.ResultContainer}>
+          <table className={styles.ListOfResults}>
+            {listOfSongs?.map((song) => (
+              <tr className={styles.ListItemResult}>
+                <td>{song.ime_izvodjac}</td>
+                <td>{song.naziv}</td>
+                <td>{song.trajanje}</td>
+                <td>{song.zanr_naziv}</td>
+                <td>{song.ocjena}</td>
+                <td><button onClick={()=>addSongEvent(song.ID)}>Dodaj pjesmu</button></td>
+              </tr>
+            ))}
+          </table>
+        </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Search
+export default Search;

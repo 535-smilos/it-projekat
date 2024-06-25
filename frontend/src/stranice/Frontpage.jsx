@@ -1,7 +1,6 @@
 import React from 'react'
 import styles from "./Frontpage.module.css"
 import Navbar from "../komponente/Navbar"
-import Player from '../komponente/Player'
 const Frontpage = () => {
     return (
         <div className={styles.FrontpageContainer}>
@@ -37,7 +36,7 @@ const Frontpage = () => {
                 </div>
 
             </div>
-            <Player/>
+            
         </div>
     )
 }

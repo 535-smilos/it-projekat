@@ -1,10 +1,12 @@
 import express from "express";
-import { addArtist, deleteArtist, getArtists, updateByName } from "../controllers/artistcontroller.js";
+import { addArtist, deleteArtist, getArtists, getArtistsNameBySong, updateByName } from "../controllers/artistcontroller.js";
 
 const router=express.Router();
 
 //uzmi sve izvodjace
 router.get("/", getArtists);
+
+router.get("/:songid", getArtistsNameBySong);
 
 //dodaj izvodjaca
 router.post("/", addArtist);
