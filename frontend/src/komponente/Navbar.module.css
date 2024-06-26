@@ -13,12 +13,29 @@ ul.navbarList{
     z-index: 999;
 }
 
-li>.username:hover{
+.logout:hover{
     background-color: green;
+    border-radius: 20px;
+}
+
+.username{
+    align-self: center;
+    margin-right: 10px;
 }
 
 .register:hover{
     background-color: green;
+}
+
+.logout{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    padding: 0px;
+    color: white;
+    text-align: center;
+    padding: 15px 16px;
+    text-decoration: none;
 }
 
 ul.navbarList>div{
@@ -66,7 +83,7 @@ li a:hover{
         color: green;
     }
 
-    li>a{
+    li>a, .username, .logout{
         height: 41%;
         display: flex;
         align-items: center;
@@ -89,5 +106,9 @@ li a:hover{
         left: 0%;
         overflow: hidden;
         background-color: #333;
+    }
+
+    .username, .logout{
+
     }
 }

@@ -2,12 +2,15 @@ import React, { useContext, useEffect, useState } from 'react';
 import styles from "./Library.module.css";
 import Navbar from "../komponente/Navbar";
 import { AuthContext } from '../context/authContext';
+import { SongContext } from '../context/SongContext';
 import axios from 'axios';
 import ReactPlayer from "react-player";
 import { useNavigate } from 'react-router';
 
 const Kartica = ({ id, naziv, ocjena, trajanje, artist, url, onPlaySong, onSongDelete }) => {
   const { currentUser } = useContext(AuthContext);
+  const {removeSong}=useContext(SongContext);
+  
   const handlePlaySong = () => {
     onPlaySong(url);
   };
@@ -20,11 +23,12 @@ const Kartica = ({ id, naziv, ocjena, trajanje, artist, url, onPlaySong, onSongD
       if (onSongDelete) {
         onSongDelete(id);
       }
+      removeSong(id);
     } catch(err){
       console.error("Greska pri brisanju!", err);
     }
   }
-
+  
   return (
     <div className={styles.SongItem}>
       <h4 className={styles.SongName} onClick={handlePlaySong}>{naziv}</h4>
@@ -37,45 +41,50 @@ const Kartica = ({ id, naziv, ocjena, trajanje, artist, url, onPlaySong, onSongD
 };
 
 const Library = () => {
-  const { currentUser } = useContext(AuthContext);
-  const [library, setLibrary] = useState([]);
+  
+  const {removeSong}=useContext(SongContext);
   const [currentSongUrl, setCurrentSongUrl] = useState(null);
+  const [library, setLibrary] = useState([]);
   const [likedcnt, setLikedCnt]=useState();
-
-  const loadSongs = async () => {
-    try {
-      const res = await axios.get(`/library/${currentUser.username}`);
-      setLibrary(res.data);
-    } catch (err) {
-      console.error("Error fetching songs!", err);
-    }
-  };
-
-  const loadLikedCount=async()=>{
-    try{
-      const res=await axios.get(`/library/${currentUser.username}/count`);
-      console.log(res.data);
-      setLikedCnt(res.data.LikedCnt);
-      console.log(likedcnt);
-    } catch(err){
-      console.error("Greska pri countu", err);
-    }
-  }
-
+  const { currentUser } = useContext(AuthContext);
+  
+  
   const navigate=useNavigate();
-
+  
   useEffect(() => {
+
     if(!localStorage.getItem("token")){
       navigate('/login');
     }
+ 
+    const loadSongs = async () => {
+      try {
+        const res = await axios.get(`/library/${currentUser.username}`);
+        setLibrary(res.data);
+      } catch (err) {
+        console.error("Error fetching songs!", err);
+      }
+    };
+    
+    const loadLikedCount=async()=>{
+      try{
+        const res=await axios.get(`/library/${currentUser.username}/count`);
+        setLikedCnt(res.data.LikedCnt);
+      } catch(err){
+        console.error("Greska pri countu", err);
+      }
+    }
+
+
     loadSongs();
     loadLikedCount();
   }, []);
 
   const handleSongDelete = async (id) => {
     try {
-      // Delete the song from the library state
       setLibrary(prevLibrary => prevLibrary.filter(song => song.ID !== id));
+      setLikedCnt(prevLikedCnt=>(prevLikedCnt-1)>=0?prevLikedCnt-1:0);
+      removeSong(id);
     } catch (err) {
       console.error("Error deleting song!", err);
     }

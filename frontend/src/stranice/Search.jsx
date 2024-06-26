@@ -2,12 +2,13 @@ import React, { useEffect, useState, useContext } from 'react';
 import styles from "./Search.module.css";
 import Navbar from "../komponente/Navbar";
 import { AuthContext } from '../context/authContext';
+import { SongContext } from '../context/SongContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 
 const Search = () => {
   const { currentUser } = useContext(AuthContext);
-
+  const { addedSongs,addSong }=useContext(SongContext);
   const [listOfSongs, setListOfSongs] = useState([]);
   const [searchText, setSearchText] = useState("");
 
@@ -15,16 +16,15 @@ const Search = () => {
     try {
       const res = await axios.get(`/songs/`);
       setListOfSongs(res.data);
-      console.log(res.data.map(data => data.ID));
     } catch (err) {
       console.error("Greska pri fetchovanju pjesama!", err);
     }
   };
 
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if(!localStorage.getItem("token")){
+    if (!localStorage.getItem("token")) {
       navigate('/login');
     }
     getSongs();
@@ -34,17 +34,19 @@ const Search = () => {
     try {
       console.log(song_id);
       const res = await axios.post(`/library/${currentUser.username}/${song_id}`);
-      console.log(res.data);
+      alert(res.data);
+      addSong(song_id);
     } catch (err) {
       console.error("Greska pri dodavanju!", err);
     }
   };
 
-  const filterList = listOfSongs.filter((song) => {//pretraga po zanrovima
+  const filterList = listOfSongs.filter((song) => {
     return (
-      song.ime_izvodjac.toLowerCase().includes(searchText.toLowerCase()) ||
-      song.naziv.toLowerCase().includes(searchText.toLowerCase()) ||
-      song.zanr_naziv.toLowerCase().includes(searchText.toLowerCase())
+      (song.ime_izvodjac.toLowerCase().includes(searchText.toLowerCase()) ||
+        song.naziv.toLowerCase().includes(searchText.toLowerCase()) ||
+        song.zanr_naziv.toLowerCase().includes(searchText.toLowerCase())) &&
+      !addedSongs.has(song.ID)
     );
   });
 
@@ -57,19 +59,20 @@ const Search = () => {
           <input type="text" name="searchText" id={styles.searchText} value={searchText} onChange={(e) => setSearchText(e.target.value)} />
         </div>
         <div className={styles.searchResults}>
-
           <div className={styles.ResultContainer}>
             <table className={styles.ListOfResults}>
-              {filterList?.map((song) => (
-                <tr className={styles.ListItemResult}>
-                  <td>{song.ime_izvodjac}</td>
-                  <td>{song.naziv}</td>
-                  <td>{song.trajanje}</td>
-                  <td>{song.zanr_naziv}</td>
-                  <td>{song.ocjena}</td>
-                  <td><button onClick={() => addSongEvent(song.ID)}>Dodaj pjesmu</button></td>
-                </tr>
-              ))}
+              <tbody>
+                {filterList?.map((song) => (
+                  <tr className={styles.ListItemResult} key={song.ID}>
+                    <td>{song.ime_izvodjac}</td>
+                    <td>{song.naziv}</td>
+                    <td>{song.trajanje}</td>
+                    <td>{song.zanr_naziv}</td>
+                    <td>{song.ocjena}</td>
+                    <td><button onClick={() => addSongEvent(song.ID)}>Dodaj pjesmu</button></td>
+                  </tr>
+                ))}
+              </tbody>
             </table>
           </div>
         </div>

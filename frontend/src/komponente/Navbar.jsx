@@ -32,9 +32,11 @@ const Navbar = () => {
                 </div>
 
                 <>{currentUser? (
-                    <li >
-                    <Link className={styles.username} onClick={logoutHandle}to={"../login"}>{currentUser.username}</Link>
+                    <><li className={styles.username}>
+                    {currentUser.username}
                     </li>
+                    <Link className={styles.logout} onClick={logoutHandle}to={"../login"}>LOGOUT</Link>
+                    </>
                 ) : (<><li>
                     <Link to={"../login"}>Login</Link>
                 </li>

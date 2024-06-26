@@ -57,7 +57,7 @@ div.searchResults{
     margin: auto;
     margin-top: 5%;
     width: 74%;
-    height: 350px;
+    height: 400px;
 }
 
 div.ResultContainer{
@@ -91,7 +91,7 @@ div.ResultContainer{
     align-items: flex-start;
     justify-content: space-between;
     padding: 10px 0;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     margin-top: 15px;
     gap: 100px;
 }
