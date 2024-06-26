@@ -10,6 +10,7 @@ import artistRoutes from "./routes/artists.js";
 import authRoutes from "./routes/auth.js";
 import libraryRoutes from "./routes/library.js";
 import performRoutes from "./routes/perform.js";
+import newsRoutes from "./routes/news.js";
 
 const app=express();
 
@@ -32,6 +33,7 @@ app.use("/api/library", libraryRoutes);
 app.use("/api/performs", performRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/users", authRoutes);
+app.use("/api/news", newsRoutes);
 
 app.get("/", (req, res) => {
     res.json("HEllo this is bekend!");

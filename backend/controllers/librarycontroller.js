@@ -41,6 +41,7 @@ export const likeSong=(req, res) => {
                 if (likeResult.length > 0) return res.status(400).json("Pjesma vec lajkovana!");
 
                 // Like the song
+                
                 const q = "insert into pjesma_korisnik (id_pjesma, korisnik_username, ocjena) values (?,?,?)";
                 db.query(q, [song_id, username, ocjena || null], (err, data) => {
                     if (err) return res.json(err);

@@ -3,7 +3,7 @@ import {db} from "../server.js";
 export const getSongs=(req, res) => {
     const q = `select pjesma.ID, i.ime_izvodjac, pjesma.naziv, pjesma.url, pjesma.trajanje, pjesma.ocjena , z.naziv as zanr_naziv from pjesma
     inner join pjesma_izvodjac i on i.id_pjesma=pjesma.ID
-    inner join zanr z on z.ID=pjesma.zanr_id
+    inner join zanr z on z.naziv=pjesma.naziv_zanra
     `;
     db.query(q, (err, data) => {
         if (err) return res.json(err);
@@ -13,7 +13,7 @@ export const getSongs=(req, res) => {
 
 export const addSong=(req, res)=>{
     const { naziv, url, ocjena, trajanje, zanr_id } = req.body;
-    const q = "INSERT INTO PJESMA (naziv, url, ocjena, trajanje, zanr_id) VALUES (?, ?, ?, ?, ?)";
+    const q = "INSERT INTO PJESMA (naziv, url, ocjena, trajanje, naziv_zanra) VALUES (?, ?, ?, ?, ?)";
     db.query(q, [naziv, url, ocjena, trajanje, zanr_id], (err, data) => {
         if (err) return res.json(err);
         return res.json("Pjesma dodata!");
@@ -32,7 +32,7 @@ export const getBySongID=(req, res)=>{
 export const updateByID=(req, res) => {
     const { id } = req.params;
     const { naziv, url, ocjena, trajanje, zanr_id } = req.body;
-    const q = "UPDATE PJESMA SET naziv = ?, url = ?, ocjena = ?, trajanje = ?, zanr_id = ? WHERE ID = ?";
+    const q = "UPDATE PJESMA SET naziv = ?, url = ?, ocjena = ?, trajanje = ?, naziv_zanra = ? WHERE ID = ?";
     db.query(q, [naziv, url, ocjena, trajanje, zanr_id, id], (err, data) => {
         if (err) return res.json(err);
         return res.json("Pjesma azurirana!");

@@ -3,25 +3,43 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 
-export const register=async (req, res) => {
+export const register = async (req, res) => {
     const { username, password, slika, email, je_admin } = req.body;
-    if(!username||!password||!email){
-        return res.status(404).json("Potrebni su svi podaci!");
+    if (!username || !password || !email) {
+        return res.status(400).json("Potrebni su svi podaci!");
     }
 
-    const exists="SELECT * from korisnik where username=? or email=?";
-    db.query(exists, [username, email], async (err, data)=>{
-        if(err) return res.json(err);
-        if(data.length>0) return res.status(400).json("Korisnik vec postoji!");
+    // Check if user already exists
+    const exists = "SELECT * FROM korisnik WHERE username = ? OR email = ?";
+    db.query(exists, [username, email], async (err, data) => {
+        if (err) return res.json(err);
+        if (data.length > 0) return res.status(400).json("Korisnik vec postoji!");
 
-        const salt=bcrypt.genSaltSync(10);
-        const hashpass=bcrypt.hashSync(password, salt);
+        // Check if je_admin is requested and if an admin already exists
+        if (je_admin && je_admin.toLowerCase() === "admin") {
+            const checkAdmin = "SELECT * FROM korisnik WHERE je_admin = 1";
+            db.query(checkAdmin, [], (err, data) => {
+                if (err) return res.json(err);
+                if (data.length > 0) return res.status(400).json("Vec postoji admin!");
 
-        const q = "insert into korisnik (username, password, slika, email, je_admin) values (?,?,?,?,?)";
-        db.query(q, [username, hashpass, slika, email, je_admin], (err, data) => {
-            if (err) return res.json(err);
-            return res.json("Uspjesno kreiran korisnik!");
-        });
+                // Create new admin user
+                createUser(username, password, slika, email, 1, res);
+            });
+        } else {
+            // Create new regular user
+            createUser(username, password, slika, email, 0, res);
+        }
+    });
+};
+
+const createUser = (username, password, slika, email, isAdmin, res) => {
+    const salt = bcrypt.genSaltSync(10);
+    const hashpass = bcrypt.hashSync(password, salt);
+
+    const q = "INSERT INTO korisnik (username, password, slika, email, je_admin) VALUES (?, ?, ?, ?, ?)";
+    db.query(q, [username, hashpass, slika, email, isAdmin], (err, data) => {
+        if (err) return res.json(err);
+        return res.json("Uspjesno kreiran korisnik!");
     });
 };
 

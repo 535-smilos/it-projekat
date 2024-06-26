@@ -2,8 +2,6 @@ import React, { useContext, useState } from 'react'
 import styles from "./Login.module.css"
 import Navbar from '../komponente/Navbar'
 import { Link, useNavigate } from 'react-router-dom'
-import Validation from '../LoginValidation'
-import axios from "axios";
 import { AuthContext } from '../context/authContext'
 
 const Login = () => {
@@ -13,7 +11,7 @@ const Login = () => {
     username:"", password:""
   });
 
-  const [err, setError]=useState();
+  const [error, setError]=useState();
 
   const handleChange=e=>{
     setInputs(prev=>({...prev, [e.target.name]:e.target.value}));
@@ -30,12 +28,12 @@ const Login = () => {
       navigate("/frontpage");
     } catch (err) {
       setError(err.response.data);
+      alert(err.response.data);
     }
   };
 
   return (
     <body>
-      <Navbar />
       <div className={styles.form_flexcont}>
         <div className={styles.login_form}>
           <form>
@@ -51,7 +49,6 @@ const Login = () => {
             <input type="password" name="password" id="loginpass"
               onChange={handleChange} />
             {/* {errors.password && <span>{errors.password}</span>} */}
-            {err && <p>{err}</p>}
             <button onClick={handleSubmit}>LOGIN</button>
             <p>Doesn't have an account?  <Link to={"../register"}>Register</Link></p>
           </form>

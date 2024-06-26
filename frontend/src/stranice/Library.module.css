@@ -81,6 +81,10 @@
     margin: 0;
 }
 
+.SongName:hover{
+    cursor: pointer;
+}
+
 .playercontainer {
     position: fixed;
     bottom: 0;

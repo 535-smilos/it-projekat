@@ -4,30 +4,22 @@ import Navbar from "../komponente/Navbar";
 import { AuthContext } from '../context/authContext';
 import axios from 'axios';
 import ReactPlayer from "react-player";
+import { useNavigate } from 'react-router';
 
-const Kartica = ({ id, naziv, ocjena, trajanje, artist, url, onPlaySong }) => {
+const Kartica = ({ id, naziv, ocjena, trajanje, artist, url, onPlaySong, onSongDelete }) => {
   const { currentUser } = useContext(AuthContext);
   const handlePlaySong = () => {
     onPlaySong(url);
   };
-
-  const [library, setLibrary] = useState([]);
-
-  const loadSongs = async () => {
-    try {
-      const res = await axios.get(`/library/${currentUser.username}`);
-      setLibrary(res.data);
-    } catch (err) {
-      console.error("Error fetching songs!", err);
-    }
-  };
-
+  
   const unlikeSong=async()=>{
     try{
-
       const res=await axios.delete(`/library/${currentUser.username}/${id}`);
-      console.log("Song deleted!"+res.data);
-      loadSongs();
+      alert("Song deleted!");
+      console.log(res.data);
+      if (onSongDelete) {
+        onSongDelete(id);
+      }
     } catch(err){
       console.error("Greska pri brisanju!", err);
     }
@@ -70,16 +62,28 @@ const Library = () => {
     }
   }
 
+  const navigate=useNavigate();
+
   useEffect(() => {
+    if(!localStorage.getItem("token")){
+      navigate('/login');
+    }
     loadSongs();
     loadLikedCount();
   }, []);
 
+  const handleSongDelete = async (id) => {
+    try {
+      // Delete the song from the library state
+      setLibrary(prevLibrary => prevLibrary.filter(song => song.ID !== id));
+    } catch (err) {
+      console.error("Error deleting song!", err);
+    }
+  };
+
   const handlePlaySong = (url) => {
     setCurrentSongUrl(url);
   };
-
-
 
   return (
     <>
@@ -110,6 +114,7 @@ const Library = () => {
                 trajanje={song.trajanje}
                 url={song.url}
                 onPlaySong={handlePlaySong}
+                onSongDelete={handleSongDelete}
               />
             ))}
           </div>

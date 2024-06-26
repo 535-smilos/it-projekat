@@ -28,14 +28,19 @@ h1{
     text-align: center;
 }
 
+.NewsContainer{
+    width: 90%;
+}
+
 div.kartice {
+    height: 500px;
     display: flex;
     border-radius: 5px;
     gap: 50px;
     justify-content: space-around;
     padding: 20px;
-    flex-direction: row;
-    width: 90%;
+    flex-direction: column;
+    overflow-y: auto;
 }
 
 div.kartice>div {
@@ -43,14 +48,17 @@ div.kartice>div {
     border-radius: 5px;
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
     padding: 15px;
     align-items: center;
     background-color: #352b2b;
 }
 
-div.kartice>div>h2,
-p {
-    text-align: center;
+div.kartice>div>h2,p {
+    text-align: left;
+    width: 100%;
+    margin: 10px;
+    word-wrap: break-word;
 }
 
 div.kartice>div>button {
@@ -69,6 +77,11 @@ div.kartice>div>button {
 
 
 @media (max-width: 600px) {
+
+    .NewsContainer{
+        width: 90%;
+    }
+
     div.kartice {
         display: flex;
         border-radius: 5px;
@@ -76,5 +89,6 @@ div.kartice>div>button {
         justify-content: space-around;
         padding: 20px;
         flex-direction: column;
+        height: 450px;
     }
 }

@@ -8,10 +8,10 @@ export const getGenres=(req, res) => {
     });
 };
 
-export const getByGenreID=(req, res) => {
-    const q = "select * from zanr where id=?";
-    const { id } = req.params;
-    db.query(q, [id], (err, data) => {
+export const getByGenreName=(req, res) => {
+    const q = "select * from zanr where naziv=?";
+    const { name } = req.body.naziv;
+    db.query(q, [name], (err, data) => {
         if (err) return res.json(err);
         return res.json(data);
     });
@@ -26,9 +26,9 @@ export const addGenre=(req, res) => {
     });
 };
 
-export const deleteByID=(req, res) => {
-    const q = "DELETE FROM zanr WHERE id = ?";
-    const value = [req.params.id];
+export const deleteByGenreName=(req, res) => {
+    const q = "DELETE FROM zanr WHERE naziv = ?";
+    const value = [req.body.naziv];
     db.query(q, value, (err, data) => {
         if (err) return res.json(err);
         if (data.affectedRows === 0) return res.status(404).json("zanr ne postoji!");
@@ -36,11 +36,10 @@ export const deleteByID=(req, res) => {
     });
 };
 
-export const updateByID=(req, res) => {
-    const { naziv } = req.body;
-    const { id } = req.params;
-    const q = "UPDATE ZANR SET naziv = ? WHERE ID = ?";
-    db.query(q, [naziv, id], (err, data) => {
+export const updateByGenreName=(req, res) => {
+    const { stari_naziv, novi_naziv } = req.body;
+    const q = "UPDATE ZANR SET naziv = ? WHERE naziv = ?";
+    db.query(q, [novi_naziv, stari_naziv], (err, data) => {
         if (err) return res.json(err);
         return res.json("zanr uspjesno azuriran!");
     });
