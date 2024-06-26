@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import styles from "./Register.module.css"
 import { Link, useNavigate } from 'react-router-dom'
-import Navbar from "../komponente/Navbar"
 import axios from "axios";
 
 const Register = () => {

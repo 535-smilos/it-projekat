@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react'
 import styles from "./Login.module.css"
-import Navbar from '../komponente/Navbar'
 import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/authContext'
 

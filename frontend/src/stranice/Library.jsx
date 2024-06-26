@@ -48,6 +48,7 @@ const Library = () => {
   const [likedcnt, setLikedCnt]=useState();
   const { currentUser } = useContext(AuthContext);
   
+  const [profilepic, setProfilePic]=useState();
   
   const navigate=useNavigate();
   
@@ -94,21 +95,35 @@ const Library = () => {
     setCurrentSongUrl(url);
   };
 
+  const ImageChange=e=>{
+    setProfilePic(prev=>({...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleImageChange=async(e)=>{
+    e.preventDefault();
+    try{
+      alert(axios.put(`/users/pfp/${currentUser.username}`).data);
+    } catch(err){
+      console.error(err);
+    }
+  };
+
   return (
     <>
       <Navbar />
       <div className={styles.PageContainer}>
         <div className={styles.ProfileContainer}>
           <div className={styles.ProfileInfo}>
-            <img src={require("./sceSSpeng.png")} alt='' className={styles.ProfileImage} />
+            <img src={require(`${currentUser.slika}`)} alt='' className={styles.ProfileImage} />
             <div className={styles.username}>
               <h1 className={styles.name}>{currentUser.username}</h1>
               <h5 className={styles.numofsongs}>Liked songs: {likedcnt}</h5>
             </div>
           </div>
           <div className={styles.changePFP}>
-            <label htmlFor="editpfp">Change pfp</label>
-            <input type="file" name="editpfp" id="editpfp" className={styles.editpfp} />
+            <label htmlFor="slika">Change pfp</label>
+            <input type="file" name="slika" id="slika" onChange={ImageChange} className={styles.editpfp} />
+            <button onClick={handleImageChange}>promijeni</button>
           </div>
         </div>
         <div className={styles.SongsContainer}>

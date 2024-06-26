@@ -21,14 +21,15 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    margin-left: 50px;
 }
 
 .ProfileImage{
     height: 180px;
     width: 180px;
-    border-radius: 25%;
+    border-radius: 50%;
     object-fit: cover;
-    padding-right: 50px;
+    margin-right: 50px;
 }
 
 .Username{
