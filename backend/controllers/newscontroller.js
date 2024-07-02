@@ -18,19 +18,20 @@ export const postNews=(req, res)=>{
 };
 
 export const updateNews=(req, res)=>{
-    const news_id=req.params;
+    const news_id=req.params.id;
     const updated=req.body;
-    const q="update table novost set naslov=?, opis=? values (?,?) where id_novost=?";
+    const q="UPDATE novost SET naslov = ?, opis = ? WHERE id_novost = ?";
     db.query(q, [updated.noviNaslov, updated.noviOpis, news_id], (err, data)=>{
         if(err) return res.json(err);
-        return res.json(data);
+        return res.json("Uspjesno izmijenjena novost!");
     });
 };
 
 export const deleteNews=(req, res)=>{
-    const news_id=req.params;
+    const id_novost=req.params.id;
+    console.log(id_novost);
     const q="delete from novost where id_novost=?";
-    db.query(q, [news_id], (err, data)=>{
+    db.query(q, [id_novost], (err, data)=>{
         if(err) return res.json(err);
         return res.json(data);
     })

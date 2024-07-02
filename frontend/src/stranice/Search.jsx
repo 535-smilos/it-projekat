@@ -69,7 +69,10 @@ const Search = () => {
                     <td>{song.trajanje}</td>
                     <td>{song.zanr_naziv}</td>
                     <td>{song.ocjena}</td>
-                    <td><button onClick={() => addSongEvent(song.ID)}>Dodaj pjesmu</button></td>
+                    <td>{currentUser.je_admin===0?
+                      <button onClick={() => addSongEvent(song.ID)}>Dodaj pjesmu</button>:""
+                    }
+                      </td>
                   </tr>
                 ))}
               </tbody>

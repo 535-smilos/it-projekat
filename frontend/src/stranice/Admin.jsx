@@ -43,7 +43,6 @@ const SongCard=({id,naziv, ime_izvodjac, onDelete})=>{
         </div>
     );
 
-    
 }
 
 const Admin = () => {

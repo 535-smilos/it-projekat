@@ -21,6 +21,8 @@ const Navbar = () => {
                         <Link to={"../frontpage"} className={styles.naslov}>SoundSphere</Link>
                     </li>
 
+                    {currentUser.je_admin==0?
+                    <>
                     <li>
                         <Link to={"../library"}>Library</Link>
                     </li>
@@ -28,7 +30,12 @@ const Navbar = () => {
                     <li>
                         <Link to={"../search"}>Search</Link>
                     </li>
-
+                    </>
+                    :
+                    <li>
+                        <Link to={"../admin"}>ADMIN</Link>
+                    </li>
+                    }
                 </div>
 
                 <>{currentUser? (

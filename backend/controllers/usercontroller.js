@@ -47,13 +47,3 @@ export const deleteUserByUsername=(req, res) => {
         return res.json("Uspjesno obrisan korisnik!");
     });
 };
-
-export const updateUserPicture=(req, res)=>{
-    const {user}=req.params;
-    const {slika}=req.body.slika;
-    const q="update korisnik set slika=? where username=?";
-    db.query(q, [slika, user], (err, data)=>{
-        if(err) return res.json(err);
-        return res.json("Azurirana slika!");
-    });
-}

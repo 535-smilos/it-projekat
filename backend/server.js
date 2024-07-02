@@ -1,7 +1,7 @@
 import express from "express";
 import mysql from "mysql";
 import cors from "cors";
-import cookieParser from "cookie-parser";
+import bodyParser from "body-parser";
 
 import songRoutes from "./routes/songs.js";
 import userRoutes from "./routes/users.js";
@@ -11,6 +11,7 @@ import authRoutes from "./routes/auth.js";
 import libraryRoutes from "./routes/library.js";
 import performRoutes from "./routes/perform.js";
 import newsRoutes from "./routes/news.js";
+import imageRoutes from "./routes/image.js";
 
 const app=express();
 
@@ -23,7 +24,8 @@ export const db = mysql.createConnection({
 
 app.use(cors());
 app.use(express.json());
-app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
 
 
 app.use("/api/songs", songRoutes);
@@ -34,6 +36,7 @@ app.use("/api/performs", performRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/news", newsRoutes);
+app.use("/api/pfp", imageRoutes);
 
 app.get("/", (req, res) => {
     res.json("HEllo this is bekend!");

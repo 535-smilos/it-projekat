@@ -96,14 +96,14 @@ const Library = () => {
   };
 
   const ImageChange=e=>{
-    setProfilePic(prev=>({...prev, [e.target.name]: e.target.value }));
+    setProfilePic(prev=>({...prev, [e.target.name]:e.target.value}));
   };
 
   const handleImageChange=async(e)=>{
     e.preventDefault();
     try{
-      const res=await axios.put(`/users/pfp/${currentUser.username}`);
-      console.log(res.data);
+      const res=await axios.put(`/pfp/${currentUser.username}/`);
+      console.log(profilepic);
     } catch(err){
       console.error(err);
     }
@@ -115,7 +115,7 @@ const Library = () => {
       <div className={styles.PageContainer}>
         <div className={styles.ProfileContainer}>
           <div className={styles.ProfileInfo}>
-            <img src={require(`${currentUser.slika}`)} alt='' className={styles.ProfileImage} />
+            <img src={require(`.//slike//${currentUser.slika}`)} alt='' className={styles.ProfileImage} />
             <div className={styles.username}>
               <h1 className={styles.name}>{currentUser.username}</h1>
               <h5 className={styles.numofsongs}>Liked songs: {likedcnt}</h5>
