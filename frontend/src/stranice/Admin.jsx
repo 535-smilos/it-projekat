@@ -9,8 +9,7 @@ const UserCard = ({ username, email, onDelete }) => {
     const handleDelete = async () => {
         try {
             const res = await axios.delete(`/users/${username}`);
-            console.log(res.data);
-            onDelete(username); // Call the onDelete function passed from the parent
+            onDelete(username);
         } catch (err) {
             console.error(err);
         }
@@ -25,6 +24,28 @@ const UserCard = ({ username, email, onDelete }) => {
     );
 };
 
+const SongCard=({id,naziv, ime_izvodjac, onDelete})=>{
+
+    const handleSongDelete=async()=>{
+        try{
+            const res=await axios.delete(`/songs/${id}`);
+            onDelete(id);
+        } catch(err){
+            console.error(err);
+        }
+    }
+
+    return (
+        <div key={id} className={styles.songInfo}>
+            <h5>{naziv}</h5>
+            <h5>{ime_izvodjac}</h5>
+            <button onClick={handleSongDelete}>DELETE SONG</button>
+        </div>
+    );
+
+    
+}
+
 const Admin = () => {
     const [users, setUsers] = useState([]);
     const [songs, setSongs] = useState([]);
@@ -33,8 +54,8 @@ const Admin = () => {
     const getUsers = async () => {
         try {
             const res = await axios.get("http://localhost:8800/api/users");
-            setUsers(res.data);
-            console.log(res.data);
+            const nonAdminUsers = res.data.filter(user => user.je_admin === 0);
+            setUsers(nonAdminUsers);
         } catch (err) {
             console.error(err);
         }
@@ -44,6 +65,7 @@ const Admin = () => {
         try {
             const res = await axios.get("/songs");
             setSongs(res.data);
+            console.log(res.data);
         } catch (err) {
             console.error(err);
         }
@@ -51,6 +73,10 @@ const Admin = () => {
 
     const handleDeleteUser = (username) => {
         setUsers(users.filter(user => user.username !== username));
+    };
+   
+    const handleDeleteSong = (id) => {
+        setSongs(songs.filter(song => song.ID !== id));
     };
 
     const checkAdmin = () => {
@@ -97,10 +123,13 @@ const Admin = () => {
                     <h3>Manage Songs</h3>
                     <div className={styles.SongManagement}>
                         {songs.map(song => (
-                            <div key={song.id} className={styles.songInfo}>
-                                <h5>{song.naziv}</h5>
-                                <h5>{song.ime_izvodjac}</h5>
-                            </div>
+                            <SongCard
+                                key={song.ID}
+                                id={song.ID}
+                                naziv={song.naziv}
+                                ime_izvodjac={song.ime_izvodjac}
+                                onDelete={handleDeleteSong}
+                            />
                         ))}
                     </div>
                 </div>
