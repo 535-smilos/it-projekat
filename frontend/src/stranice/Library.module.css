@@ -15,6 +15,7 @@
     background-color: #333;
     border-radius: 10px;
     width: 90%;
+    height: 200px;
 }
 
 .ProfileInfo{
@@ -25,8 +26,8 @@
 }
 
 .ProfileImage{
-    height: 180px;
-    width: 180px;
+    height: 120px;
+    width: 120px;
     border-radius: 50%;
     object-fit: cover;
     margin-right: 50px;

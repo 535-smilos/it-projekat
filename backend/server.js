@@ -32,7 +32,7 @@ app.use("/api/artists", artistRoutes);
 app.use("/api/library", libraryRoutes);
 app.use("/api/performs", performRoutes);
 app.use("/api/users", userRoutes);
-app.use("/api/users", authRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/api/news", newsRoutes);
 
 app.get("/", (req, res) => {

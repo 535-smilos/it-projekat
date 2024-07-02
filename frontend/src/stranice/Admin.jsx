@@ -1,81 +1,81 @@
-import React, { useEffect, useState } from 'react'
-import Navbar from '../komponente/Navbar'
+import React, { useEffect, useState } from 'react';
+import Navbar from '../komponente/Navbar';
 import styles from "./Admin.module.css";
 import axios from 'axios';
 import { useNavigate } from 'react-router';
+import {jwtDecode} from 'jwt-decode';
 
-
-function Admin() {
-
-    const [genre, setGenre] = useState();
-    const [artist, setArtist] = useState();
-    const [song, setSong] = useState({
-        naziv: "", url: "", ocjena: "", trajanje: "", zanr_id: ""
-    });
-    const [perform, setPerform] = useState({
-        song_id: "", izvodjac: ""
-    })
-
-
-    const GenreChange = e => {
-        setGenre({ [e.target.name]: e.target.value });
-    };
-
-    const ArtistChange = e => {
-        setArtist({ [e.target.name]: e.target.value });
-    };
-
-    const SongChange = e => {
-        setSong(prev => ({ ...prev, [e.target.name]: e.target.value }));
-    };
-
-    const PerformChange = e => {
-        setPerform(prev => ({ ...prev, [e.target.name]: e.target.value }));
-    };
-
-    const handleGenreChange = async e => {
-        e.preventDefault();
+const UserCard = ({ username, email, onDelete }) => {
+    const handleDelete = async () => {
         try {
-            alert((await axios.post("/genres/", genre)).data);
+            const res = await axios.delete(`/users/${username}`);
+            console.log(res.data);
+            onDelete(username); // Call the onDelete function passed from the parent
         } catch (err) {
-            alert(err.response.data);
+            console.error(err);
         }
     };
 
-    const handleArtistChange = async e => {
-        e.preventDefault();
+    return (
+        <div className={styles.userInfo}>
+            <h5>{username}</h5>
+            <h5>{email}</h5>
+            <button onClick={handleDelete}>DELETE USER</button>
+        </div>
+    );
+};
+
+const Admin = () => {
+    const [users, setUsers] = useState([]);
+    const [songs, setSongs] = useState([]);
+    const navigate = useNavigate();
+
+    const getUsers = async () => {
         try {
-            alert((await axios.post("/artists/", artist)).data);
+            const res = await axios.get("http://localhost:8800/api/users");
+            setUsers(res.data);
+            console.log(res.data);
         } catch (err) {
-            alert(err.response.data);
+            console.error(err);
         }
     };
 
-    const handleSongChange = async e => {
-        e.preventDefault();
+    const getSongs = async () => {
         try {
-            alert((await axios.post("/songs/", song)).data);
+            const res = await axios.get("/songs");
+            setSongs(res.data);
         } catch (err) {
-            alert(err.response.data);
+            console.error(err);
         }
     };
 
-    const handlePerformChange = async e => {
-        e.preventDefault();
-        try {
-            alert((await axios.post("/performs/", perform)).data);
-        } catch (err) {
-            alert(err.response.data);
-        }
+    const handleDeleteUser = (username) => {
+        setUsers(users.filter(user => user.username !== username));
     };
 
-    const navigate=useNavigate();
+    const checkAdmin = () => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            navigate('/login');
+            return;
+        }
 
-    useEffect(() => {
-        if (!localStorage.getItem("token")) {
+        try {
+            const decoded = jwtDecode(token);
+            if (decoded.je_admin !== 1) { // Assuming 1 means admin
+                navigate('/login');
+            }
+        } catch (err) {
+            console.error(err);
             navigate('/login');
         }
-    });
+    };
+
+    useEffect(() => {
+        checkAdmin();
+        getUsers();
+        getSongs();
+    }, []);
 
     return (
         <>
@@ -83,60 +83,30 @@ function Admin() {
             <div className={styles.adminContainer}>
                 <h2>ADMIN STRANICA</h2>
                 <div className={styles.adminWrapper}>
-                    <div className={styles.addGenre}>
-                        <form>
-                            <label htmlFor="genre">Dodaj zanr(po imenu)</label>
-                            <input type="text" name="naziv" id="genre" onChange={GenreChange} />
-
-                            <button onClick={handleGenreChange}>Dodaj zanr</button>
-                        </form>
+                    <h3>Manage Users</h3>
+                    <div className={styles.UserManagement}>
+                        {users.map(user => (
+                            <UserCard
+                                key={user.username}
+                                username={user.username}
+                                email={user.email}
+                                onDelete={handleDeleteUser}
+                            />
+                        ))}
                     </div>
-                    <div className={styles.addArtist}>
-                        <form>
-                            <label htmlFor="artist">Dodaj izvodjaca(po imenu)</label>
-                            <input type="text" name="ime" id="artist" onChange={ArtistChange} />
-
-                            <button onClick={handleArtistChange}>Dodaj izvodjaca</button>
-                        </form>
+                    <h3>Manage Songs</h3>
+                    <div className={styles.SongManagement}>
+                        {songs.map(song => (
+                            <div key={song.id} className={styles.songInfo}>
+                                <h5>{song.naziv}</h5>
+                                <h5>{song.ime_izvodjac}</h5>
+                            </div>
+                        ))}
                     </div>
-                    <div className={styles.addSong}>
-                        <form>
-                            <label htmlFor="name">Dodaj naziv pjesme</label>
-                            <input type="text" name="naziv" id="name" onChange={SongChange} />
-
-                            <label htmlFor="link">Dodaj URL pjesme</label>
-                            <input type="text" name="url" id="link" onChange={SongChange} />
-
-                            <label htmlFor="globalrate">Unesi opstu ocjenu pjesme</label>
-                            <input type="text" name="ocjena" id="globalrate" onChange={SongChange} />
-
-                            <label htmlFor="duration">Unesi trajanje pjesme</label>
-                            <input type="text" name="trajanje" id="duration" onChange={SongChange} />
-
-                            <label htmlFor="genreID">Unesi ID zanra</label>
-                            <input type="text" name="zanr_id" id="genreID" onChange={SongChange} />
-
-                            <button onClick={handleSongChange}>Dodaj pjesmu</button>
-                        </form>
-                    </div>
-
-                    <div className={styles.addPerformer}>
-                        <form>
-
-                            <label htmlFor="pjesma">Unesi pjesmin ID</label>
-                            <input type="text" name="song_id" id="pjesma" onChange={PerformChange} />
-
-                            <label htmlFor="performer">Unesi ime izvodjaca</label>
-                            <input type="text" name="izvodjac" id="performer" onChange={PerformChange} />
-
-                            <button onClick={handlePerformChange}>Uvezi izvodjaca sa pjesmom</button>
-                        </form>
-                    </div>
-
                 </div>
             </div>
         </>
-    )
-}
+    );
+};
 
-export default Admin
+export default Admin;

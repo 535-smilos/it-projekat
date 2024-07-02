@@ -1,6 +1,18 @@
 import {db} from "../server.js";
+import jwt from "jsonwebtoken";
 
 export const getUsers=(req, res) => {
+
+    const token = req.headers.authorization.split(" ")[1];
+    try {
+        const decoded = jwt.verify(token, "jwtkey");
+        if (decoded.je_admin != 1) {
+            return res.status(403).json({ message: "Zabranjen pristup" });
+        }
+    } catch (err) {
+        return res.status(401).json({ message: "Neautorizovan pristup" });
+    }
+
     const q = "SELECT * from korisnik";
     db.query(q, (err, data) => {
         if (err) return res.json(err);

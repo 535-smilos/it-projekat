@@ -102,7 +102,8 @@ const Library = () => {
   const handleImageChange=async(e)=>{
     e.preventDefault();
     try{
-      alert(axios.put(`/users/pfp/${currentUser.username}`).data);
+      const res=await axios.put(`/users/pfp/${currentUser.username}`);
+      console.log(res.data);
     } catch(err){
       console.error(err);
     }

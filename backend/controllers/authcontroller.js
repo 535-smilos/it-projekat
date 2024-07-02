@@ -54,7 +54,7 @@ export const login=(req, res)=>{
         if(!isPassTrue) return res.status(400).json("Pogresna sifra ili username!");
 
         //tokenizacija!
-        const token=jwt.sign({username:data[0].username}, "jwtkey");
+        const token=jwt.sign({username:data[0].username, je_admin:data[0].je_admin}, "jwtkey");
         const {password, ...other}=data[0];
 
         res.status(200).json({other, token});
