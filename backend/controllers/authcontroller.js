@@ -37,8 +37,8 @@ const createUser = (username, password, slika, email, isAdmin, res) => {
     const hashpass = bcrypt.hashSync(password, salt);
 
     const q = "INSERT INTO korisnik (username, password, slika, email, je_admin) VALUES (?, ?, ?, ?, ?)";
-    db.query(q, [username, hashpass, slika, email, isAdmin], (err, data) => {
-        if (err) return res.json(err);
+    db.query(q, [username, hashpass, slika||null, email, isAdmin], (err, data) => {
+        if (err) return res.json("Neuspjesno!"+err);
         return res.json("Uspjesno kreiran korisnik!");
     });
 };

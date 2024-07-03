@@ -2,8 +2,8 @@ import express from "express";
 import { addSong, deleteByID, getBySongID, getSongs, updateByID } from "../controllers/songcontroller.js";
 const router=express.Router();
 
-//izlistaj sve pjesme
-router.get("/", getSongs);
+//izlistaj sve pjesme koje korisnik nije lajkovao
+router.get("/:username", getSongs);
 
 //kreiraj pjesmu
 router.post("/", addSong);

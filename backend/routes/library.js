@@ -1,10 +1,12 @@
 import express from "express";
-import { LikeCount, getLikedByUser, getRateOfSong, likeSong, removeLike, updateRateOfSong } from "../controllers/librarycontroller.js";
+import { LikeCount, getLikedByUser, getRateOfSong, likeSong, removeLike, updateRateOfSong, getRestOfSongs } from "../controllers/librarycontroller.js";
 
 const router=express.Router();
 
 //uzmi pjesme korisnika koje se nalaze u library-ju, tj koje je on lajkovao
 router.get("/:username", getLikedByUser);
+
+router.get("/:username/exc", getRestOfSongs);
 
 //lajkuj pjesmu, tj za datog korisnika za neku pjesmu ubaci u pjesma_korisnik(library)
 router.post("/:username/:song_id", likeSong);

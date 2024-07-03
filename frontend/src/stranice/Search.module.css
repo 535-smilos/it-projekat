@@ -29,10 +29,11 @@ div.searchBar{
 }
 
 input#searchText{
-    width: 100%;
+    width: 50%;
     height: 30px;
     border-radius: 20px;
     font-size: inherit;
+    padding-left: 10px;
 }
 
 label.SearchLabel{
@@ -94,6 +95,13 @@ div.ResultContainer{
     margin-bottom: 20px;
     margin-top: 15px;
     gap: 100px;
+}
+
+.FilterTab form{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 @media (max-width: 600px) {

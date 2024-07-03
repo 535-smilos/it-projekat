@@ -1,7 +1,7 @@
 import {db} from "../server.js"
 
 export const getAllNews=(req, res)=>{
-    const q="select * from novost";
+    const q="select * from novost order by id_novost desc";
     db.query(q, (err, data)=>{
         if(err) return res.json(err);
         return res.json(data);

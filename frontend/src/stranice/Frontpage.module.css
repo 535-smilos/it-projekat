@@ -4,6 +4,9 @@ body{
 
 .FrontpageContainer {
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 div.homeContainer {
@@ -33,14 +36,14 @@ h1{
 }
 
 div.kartice {
-    height: 500px;
     display: flex;
     border-radius: 5px;
     gap: 50px;
-    justify-content: space-around;
+    justify-content: flex-start;
     padding: 20px;
     flex-direction: column;
     overflow-y: auto;
+    height: 400px;
 }
 
 div.kartice>div {
@@ -75,6 +78,62 @@ div.kartice>div>button {
     font-family: montserrat;
 }
 
+.EditDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+}
+
+.EditDiv>textarea, input{
+    background-color: #505050;
+    color: white;
+    font-family: 'Montserrat';
+}
+
+.AddForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.AddForm>textarea, input{
+    background-color: #505050;
+    color: white;
+    font-family: 'Montserrat';
+}
+
+.newNaslov{
+    width: 300px;
+}
+
+.newOpis{
+    width: 500px;
+    height: 200px;
+}
+
+.Buttons{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.editBtn, .deleteBtn, .addBtn{
+    border-radius: 22.5px;
+    padding: 7px;
+    font-family: "Montserrat";
+    font-weight: 700;
+}
+
+.addBtn{
+    margin-bottom: 5px;
+}
+
+.novostheading{
+    margin: 5px 0 5px 0;
+}
 
 @media (max-width: 600px) {
 

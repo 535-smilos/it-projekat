@@ -4,8 +4,9 @@ import Navbar from "../komponente/Navbar";
 import { AuthContext } from '../context/authContext';
 import { SongContext } from '../context/SongContext';
 import axios from 'axios';
-import ReactPlayer from "react-player";
+import ReactPlayer from "react-player/lazy";
 import { useNavigate } from 'react-router';
+import { AudioPlayerContext } from '../context/audioContext';
 
 const Kartica = ({ id, naziv, ocjena, trajanje, artist, url, onPlaySong, onSongDelete }) => {
   const { currentUser } = useContext(AuthContext);
@@ -43,7 +44,7 @@ const Kartica = ({ id, naziv, ocjena, trajanje, artist, url, onPlaySong, onSongD
 const Library = () => {
   
   const {removeSong}=useContext(SongContext);
-  const [currentSongUrl, setCurrentSongUrl] = useState(null);
+  const {playSong}=useContext(AudioPlayerContext);
   const [library, setLibrary] = useState([]);
   const [likedcnt, setLikedCnt]=useState();
   const { currentUser } = useContext(AuthContext);
@@ -92,7 +93,7 @@ const Library = () => {
   };
 
   const handlePlaySong = (url) => {
-    setCurrentSongUrl(url);
+    playSong(url);
   };
 
   const ImageChange=e=>{
@@ -110,12 +111,12 @@ const Library = () => {
   };
 
   return (
-    <>
+    <div className={styles.LibraryContainer} >
       <Navbar />
       <div className={styles.PageContainer}>
         <div className={styles.ProfileContainer}>
           <div className={styles.ProfileInfo}>
-            <img src={require(`.//slike//${currentUser.slika}`)} alt='' className={styles.ProfileImage} />
+            <img src={require(`./slike/image2.jpg`)} alt='' className={styles.ProfileImage} />
             <div className={styles.username}>
               <h1 className={styles.name}>{currentUser.username}</h1>
               <h5 className={styles.numofsongs}>Liked songs: {likedcnt}</h5>
@@ -145,21 +146,7 @@ const Library = () => {
           </div>
         </div>
       </div>
-      <div className={styles.playercontainer}>
-        {currentSongUrl && (
-          <ReactPlayer
-            className='react-player'
-            url={currentSongUrl}
-            width='100%'
-            height='50%'
-            playing
-            controls={true}
-            config={{file:
-              {forceAudio:true, forceVideo:false}}}
-          />
-        )}
-      </div>
-    </>
+    </div>
   );
 };
 

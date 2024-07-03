@@ -2,13 +2,16 @@ import React, { useContext } from 'react'
 import styles from "./Navbar.module.css"
 import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/authContext';
+import { AudioPlayerContext } from '../context/audioContext';
 
 const Navbar = () => {
 
     const {currentUser, logout}=useContext(AuthContext);
+    const {stopSong}=useContext(AudioPlayerContext);
     const navigate=useNavigate();
 
     const logoutHandle=()=>{
+        stopSong();
         logout();
         // navigate("../login");
     }

@@ -6,6 +6,14 @@
     gap: 40px;
     align-items: center;
     justify-content: center;
+    width: 100%;
+}
+
+.LibraryContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 
 .ProfileContainer{
@@ -87,11 +95,3 @@
     cursor: pointer;
 }
 
-.playercontainer {
-    position: fixed;
-    bottom: 0;
-    left: 25%;
-    width: 50%;
-    background-color: #f0f0f0; /* Example background color */
-    z-index: 10; /* Ensure it's above other content */
-  }

@@ -15,15 +15,7 @@ const Register = () => {
   const handleSubmit= async e=>{
     e.preventDefault();
     try {
-      const formData=new FormData();
-      formData.append('username', inputs.username);
-      formData.append('email', inputs.email);
-      formData.append('password', inputs.password);
-      formData.append('slika', inputs.slika);
-
-      const res=await axios.post("/auth/register", inputs,{
-        headers:{'Content-Type':'multipart/form-data'}
-      });
+      const res=await axios.post("/auth/register", inputs);
       console.log(res.data);
       navigate("/login");
     } catch (err) {
@@ -32,11 +24,7 @@ const Register = () => {
   }
 
   const handleChange=(e)=>{
-    if(e.target.name==="slika"){
-      setInputs(prev=>({...prev, slika:e.target.files[0]}));
-    } else{
-      setInputs(prev=>({...prev, [e.target.name]:e.target.value}));
-    }
+    setInputs(prev=>({...prev, [e.target.name]:e.target.value}));
   }
 
 

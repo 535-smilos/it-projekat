@@ -1,0 +1,18 @@
+.playerContainer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index:10; 
+}
+
+.HideBtn{
+    position: fixed;
+    z-index:11;
+    bottom: 10px;
+    right: 10px;
+    border-radius: 50%;
+    font-family: 'Montserrat';
+    font-weight: 700;
+    padding: 8px;
+    width: 55px;
+}
