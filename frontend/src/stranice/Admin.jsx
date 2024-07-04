@@ -62,7 +62,7 @@ const Admin = () => {
 
     const getSongs = async () => {
         try {
-            const res = await axios.get("/songs");
+            const res = await axios.get("http://localhost:8800/api/songs");
             setSongs(res.data);
             console.log(res.data);
         } catch (err) {

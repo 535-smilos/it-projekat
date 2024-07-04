@@ -18,7 +18,7 @@ a{
 div.register_form{
     box-sizing: border-box;
     display: flex;
-    width:35%;
+    width:450px;
     height: 60%;
     justify-content: center;
     background-color: #333;
@@ -70,44 +70,4 @@ legend{
     font-weight: bolder;
     padding-top: 5%;
     padding-bottom: 0px;
-}
-
-@media (min-width:600px) and (max-width:1000px){
-    div.register_form{
-        height: 70%;
-        width: 55%;
-    }
-
-    legend{
-        padding-top: 5%;
-    }
-}
-
-@media (max-width: 600px) {
-    div.form_flexcont{
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-        margin-top: 17%;
-        height: 90vh;
-    }
-    
-    div.register_form{
-        height: 70%;
-        width: 80%;
-    }
-    
-    div.register_form>form{
-        width: 90%;
-        height: 95%;
-        align-items: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        gap: 1px;
-    }
-    
-    
-
 }

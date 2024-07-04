@@ -29,7 +29,7 @@ const NewsCard = ({ id_novost, naslov, opis, onDelete, onEdit, currentUser }) =>
     }
 
     return (
-        <div key={id_novost}>
+        <div className={styles.Card} key={id_novost}>
             {isEditing ? (
                 <div className={styles.EditDiv}>
                     <input
@@ -105,10 +105,8 @@ const Frontpage = () => {
     return (
         <div className={styles.FrontpageContainer}>
             <Navbar />
-            <div className={styles.homeContainer}>
-                <div style={{ "background-color": "#202020", "color": "whitesmoke" }} className={styles.welcome_site}>
-                    <h1>Welcome to the <span style={{ "color": "green" }}>SoundSphere</span>!</h1>
-                </div>
+            <div  style={{ "background-color": "#202020", "color": "whitesmoke" }} className={styles.homeContainer}>
+                <h1>Welcome to the <span style={{ "color": "green" }}>SoundSphere</span>!</h1>
             </div>
             <h1 className={styles.novostheading}>Novosti zvucne sfere</h1>
             {currentUser.je_admin === 1 && (

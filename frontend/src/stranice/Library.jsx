@@ -36,7 +36,7 @@ const Kartica = ({ id, naziv, ocjena, trajanje, artist, url, onPlaySong, onSongD
       <h5 className={styles.SongArtist}>{artist}</h5>
       <h5 className={styles.SongRate}>{ocjena}</h5>
       <h5 className={styles.SongDuration}>{trajanje}</h5>
-      <button onClick={unlikeSong}>REMOVE SONG</button>
+      <button className={styles.delete} onClick={unlikeSong}>REMOVE SONG</button>
     </div>
   );
 };
@@ -47,9 +47,9 @@ const Library = () => {
   const {playSong}=useContext(AudioPlayerContext);
   const [library, setLibrary] = useState([]);
   const [likedcnt, setLikedCnt]=useState();
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, setCurrentUser } = useContext(AuthContext);
   
-  const [profilepic, setProfilePic]=useState();
+  const [slika, setSlika]=useState();
   
   const navigate=useNavigate();
   
@@ -96,19 +96,27 @@ const Library = () => {
     playSong(url);
   };
 
-  const ImageChange=e=>{
-    setProfilePic(prev=>({...prev, [e.target.name]:e.target.value}));
+  const handleFile=(e)=>{
+    setSlika(e.target.files[0]);
   };
 
-  const handleImageChange=async(e)=>{
-    e.preventDefault();
+  const handleChangeImage=async(e)=>{
+    const formdata=new FormData();
+    formdata.append('slika', slika);
     try{
-      const res=await axios.put(`/pfp/${currentUser.username}/`);
-      console.log(profilepic);
+     await axios.post("http://localhost:8800/api/image/", formdata);
+     await axios.put("http://localhost:8800/api/users/pfp/", {
+      slika:`http://localhost:8800/api/public/slike/${slika.name}`,
+     });
+     setCurrentUser({
+      ...currentUser,
+      slika:`http://localhost:8800/api/public/slike/${slika.name}`,
+     });
+     localStorage.setItem("user", JSON.stringify(currentUser));
     } catch(err){
       console.error(err);
     }
-  };
+  }
 
   return (
     <div className={styles.LibraryContainer} >
@@ -116,7 +124,7 @@ const Library = () => {
       <div className={styles.PageContainer}>
         <div className={styles.ProfileContainer}>
           <div className={styles.ProfileInfo}>
-            <img src={require(`./slike/image2.jpg`)} alt='' className={styles.ProfileImage} />
+            <img src={currentUser.slika} alt='' className={styles.ProfileImage} />
             <div className={styles.username}>
               <h1 className={styles.name}>{currentUser.username}</h1>
               <h5 className={styles.numofsongs}>Liked songs: {likedcnt}</h5>
@@ -124,8 +132,8 @@ const Library = () => {
           </div>
           <div className={styles.changePFP}>
             <label htmlFor="slika">Change pfp</label>
-            <input type="file" name="slika" id="slika" onChange={ImageChange} className={styles.editpfp} />
-            <button onClick={handleImageChange}>promijeni</button>
+            <input type="file" name="slika" id="slika" onChange={handleFile} className={styles.editpfp} />
+            <button onClick={handleChangeImage}>promijeni</button>
           </div>
         </div>
         <div className={styles.SongsContainer}>

@@ -39,6 +39,27 @@ export const updateUserByUsername=(req, res) => {
     });
 };
 
+export const updateUserImage=(req, res)=>{
+    console.log("usaouser");
+    const {slika}=req.body;
+    console.log(slika);
+    const token=req.headers.authorization.split(" ")[1];
+    try{
+        const decoded=(jwt.verify(token, "jwtkey"));
+        const q=`UPDATE korisnik SET slika=? WHERE username=?`;
+
+        db.query(q, [slika, decoded.username], (err, data)=>{
+            if(err){
+                return res.status(500).json({message:err});
+            } else {
+                return res.status(200).json({message:"image updated"});
+            }
+        });
+    } catch(err){
+        return res.status(401).json({message:"unauth"});
+    }
+}
+
 export const deleteUserByUsername=(req, res) => {
     const { username } = req.params;
     const q = "delete from korisnik where username=?";

@@ -1,8 +1,8 @@
 import express from "express";
-import { updateUserPicture } from "../controllers/imagecontroller.js";
+import { sendImage } from "../controllers/imagecontroller.js";
 
 const router=express.Router();
 
-router.put("/:username", updateUserPicture);
+router.post("/", sendImage);
 
 export default router;

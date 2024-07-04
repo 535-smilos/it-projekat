@@ -26,6 +26,7 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(express.static("public"));
 
 
 app.use("/api/songs", songRoutes);
@@ -36,12 +37,11 @@ app.use("/api/performs", performRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/news", newsRoutes);
-app.use("/api/pfp", imageRoutes);
+app.use("/api/image", imageRoutes);
 
 app.get("/", (req, res) => {
     res.json("HEllo this is bekend!");
 });
-
 
 app.listen(8800, () => {
     console.log("povezan na back!");

@@ -1,34 +1,35 @@
-::-webkit-scrollbar{
+/* src/components/Search.module.css */
+::-webkit-scrollbar {
     width: 5px;
 }
 
-::-webkit-scrollbar-thumb{
+::-webkit-scrollbar-thumb {
     background-color: gray;
 }
 
-::-webkit-scrollbar-track{
+::-webkit-scrollbar-track {
     background-color: rgb(193, 193, 193);
 }
 
-.SearchContainer{
+.SearchContainer {
     padding-top: 70px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-div.searchBar{
+div.searchBar {
     background-color: #333;
     display: flex;
     justify-content: center;
     border-radius: 10px;
-    padding: 30px;
+    padding: 20px;
     flex-direction: row;
-    width:70%;
+    width: 70%;
     gap: 10px;
 }
 
-input#searchText{
+input#searchText {
     width: 50%;
     height: 30px;
     border-radius: 20px;
@@ -36,78 +37,148 @@ input#searchText{
     padding-left: 10px;
 }
 
-label.SearchLabel{
+label.SearchLabel {
     font-size: 28px;
     font-weight: bolder;
 }
 
-button.buttonSearch{
-    width: 20%;
-    height: 100%;
-    font-size: 20px;
-    border-radius: 20px;
-}
-
-button.buttonSearch:hover{
+button.buttonSearch:hover {
     background-color: darkgrey;
 }
 
-div.searchResults{
+div.searchResults {
     display: flex;
     flex-direction: column;
     margin: auto;
-    margin-top: 5%;
-    width: 74%;
+    margin-top: 3%;
+    width: 80%;
     height: 400px;
 }
 
-div.ResultContainer{
+div.ResultContainer {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     background-color: #333;
-    width: 100%;
     height: inherit;
     border-radius: 10px;
     overflow-y: auto;
 }
 
-.ResHeader{
+.ResHeader {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
 }
 
 .ListOfResults{
-    padding: 0 20px;
+    padding: 20px;
     height: inherit;
     width: inherit;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
-.ListItemResult{
+.ListItemResult {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
-    padding: 10px 0;
+    padding: 20px;
     margin-bottom: 20px;
-    margin-top: 15px;
-    gap: 100px;
+    border: 1px solid #555;
+    border-radius: 10px;
+    background-color: #434343;
+    color: white;
+    width: 90%;
 }
 
-.FilterTab form{
+.ListItemResult h4 {
+    margin: 5px 0;
+    font-size: 15px;
+}
+
+.ListItemResult button {
+    align-self: center;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #666;
+    color: white;
+    cursor: pointer;
+    font-family: "Montserrat";
+}
+
+.ListItemResult:hover {
+    background-color: #555;
+}
+
+.ListItemResult button:hover{
+    background-color: #333;
+}
+
+.FilterTab {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    width: 70%;
+}
+
+.FilterTab select, .FilterTab form {
+    margin-left: 10px;
+}
+
+.FilterTab form {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
 }
 
-@media (max-width: 600px) {
-    
-    .ResultContainer{
-        width: 400px;
+
+@media (max-width: 780px) {
+    .SearchContainer {
+        margin-top: 10px;
     }
 
-}   
+    div.searchBar {
+        width: 80%;
+        align-items: center;
+    }
+
+    input#searchText {
+        width: 500px;
+    }
+
+    div.searchResults {
+        width: 90%;
+        margin-top: 5%;
+    }
+
+    .FilterTab {
+        align-items: center;
+    }
+
+    .ListItemResult {
+        flex-direction: column;
+        padding: 10px;
+        width: 80%;
+        margin-bottom: 15px;
+        height: 45%;
+    }
+
+    .ListItemResult h4 {
+        text-align: center;
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    .ListItemResult button {
+        padding: 10px;
+        margin-top: 10px;
+    }
+
+}
+

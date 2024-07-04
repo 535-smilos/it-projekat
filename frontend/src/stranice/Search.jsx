@@ -5,10 +5,12 @@ import { AuthContext } from '../context/authContext';
 import { SongContext } from '../context/SongContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
+import { AudioPlayerContext } from '../context/audioContext';
 
 const Search = () => {
   const { currentUser } = useContext(AuthContext);
   const { addedSongs, addSong } = useContext(SongContext);
+  const {playSong}=useContext(AudioPlayerContext);
   const [listOfSongs, setListOfSongs] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [filterOption, setFilterOption] = useState("-");
@@ -50,7 +52,27 @@ const Search = () => {
     }
   };
 
+  const handlePlaySong = (url) => {
+    playSong(url);
+  };
+
   const filterList = listOfSongs.filter((song)=>!addedSongs.has(song.ID));
+
+  const ListItemResult = ({ song }) => (
+    <div className={styles.ListItemResult} key={song.ID}>
+      <h4 onDoubleClick={() => handlePlaySong(song.url)}>{song.ime_izvodjac}</h4>
+      <h4 onDoubleClick={() => handlePlaySong(song.url)}>{song.naziv_pjesma}</h4>
+      <h5>{song.trajanje}</h5>
+      <h5>{song.zanr_naziv}</h5>
+      <h5>{song.ocjena}</h5>
+      <h4>{currentUser.je_admin === 0 ? (
+        <button onClick={() => addSongEvent(song.ID)}>Dodaj pjesmu</button>
+      ) : (
+        ""
+      )}
+      </h4>
+    </div>
+  );
 
   return (
     <>
@@ -80,21 +102,14 @@ const Search = () => {
         <div className={styles.searchResults}>
           <div className={styles.ResultContainer}>
             <div className={styles.ListOfResults}>
-              <div>
+              
                 {filterList?.map((song) => (
-                  <div className={styles.ListItemResult} key={song.ID}>
-                    <h4>{song.ime_izvodjac}</h4>
-                    <h4>{song.naziv_pjesma}</h4>
-                    <h4>{song.trajanje}</h4>
-                    <h4>{song.zanr_naziv}</h4>
-                    <h4>{song.ocjena}</h4>
-                    <h4>{currentUser.je_admin === 0 ?
-                      <button onClick={() => addSongEvent(song.ID)}>Dodaj pjesmu</button> : ""
-                    }
-                    </h4>
-                  </div>
+                  <ListItemResult
+                  key={song.ID}
+                  song={song}
+                />
                 ))}
-              </div>
+              
             </div>
           </div>
         </div>

@@ -1,14 +1,30 @@
 import {db} from "../server.js";
+import multer from "multer";
 
+const storage=multer.diskStorage({
+    destination: "./public/slike",
+    filename: function (req, file, cb) {
+        cb(null, file.originalname);
+    },
+});
 
-export const updateUserPicture=(req, res)=>{
-    const {user}=req.params;
-    const {slika}=req.body;
-    console.log(slika);
-    const q="update korisnik set slika=? where username=?";
-    db.query(q, [slika, user], (err, data)=>{
-        if(err) return res.json(err);
-        console.log(res.data);
-        return res.json("Azurirana slika!");
+const upload=multer({
+    storage:storage
+}).array("slika");
+
+export const sendImage = (req, res) => {
+    upload(req, res, (err) => {
+        if (err instanceof multer.MulterError) {
+            return res.status(500).json({
+                message: "A Multer error occurred when uploading.",
+                error: err,
+            });
+        } else if (err) {
+            return res.status(500).json({
+                message: "An unknown error occurred when uploading.",
+                error: err,
+            });
+        }
+        return res.status(200).send(req.files[0]);
     });
-}
+};

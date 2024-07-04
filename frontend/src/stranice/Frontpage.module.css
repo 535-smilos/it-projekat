@@ -11,20 +11,13 @@ body{
 
 div.homeContainer {
     display: flex;
-    width: 100%;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-}
-
-div.welcome_site {
     border-radius: 5px;
-    display: flex;
-    margin-top: 80px;
-    flex-direction: column;
-    align-items: center;
     width: 90%;
-    justify-content: center;
+    margin-top: 80px;
+
 }
 
 h1{
@@ -127,6 +120,11 @@ div.kartice>div>button {
     font-weight: 700;
 }
 
+.AddNovost{
+    display: flex;
+    justify-content: center;
+}
+
 .addBtn{
     margin-bottom: 5px;
 }
@@ -135,7 +133,21 @@ div.kartice>div>button {
     margin: 5px 0 5px 0;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
+    
+
+    .homeContainer{
+        height: 7%;
+        margin-bottom: 10px;
+    }
+    .homeContainer>h1{
+        font-size: 20px;
+    }
+    
+    .novostheading{
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
 
     .NewsContainer{
         width: 90%;
@@ -144,10 +156,39 @@ div.kartice>div>button {
     div.kartice {
         display: flex;
         border-radius: 5px;
-        gap: 50px;
+        gap: 20px;
         justify-content: space-around;
         padding: 20px;
         flex-direction: column;
-        height: 450px;
+        height: 420px;
+    }
+
+    .kartice>.Card{
+        padding:5px
+    }
+
+    .kartice>.Card>h2{
+        font-size: 15px;
+        margin-bottom:0;
+    }
+
+    p{
+        font-size: 15px;
+        margin-top: 3px;
+    }
+
+    .newNaslov, .newOpis {
+        width: 90%;
+        margin: 5px 0;
+    }
+
+    .AddForm, .EditDiv {
+        width: 90%;
+        padding: 5px;
+    }
+
+    .AddNovost{
+        width: 50%;
+        align-items: center;
     }
 }

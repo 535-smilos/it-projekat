@@ -3,7 +3,7 @@ import { addSong, deleteByID, getBySongID, getSongs, updateByID } from "../contr
 const router=express.Router();
 
 //izlistaj sve pjesme koje korisnik nije lajkovao
-router.get("/:username", getSongs);
+router.get("/", getSongs);
 
 //kreiraj pjesmu
 router.post("/", addSong);

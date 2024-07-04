@@ -20,7 +20,7 @@ div.form_flexcont{
 div.login_form{
     box-sizing: border-box;
     display: flex;
-    width:35%;
+    width:450px;
     height: 60%;
     justify-content: center;
     background-color: #333;
@@ -72,55 +72,3 @@ legend{
     padding-bottom: 15px;
 }
 
-@media (min-width:600px) and (max-width:800px) {
-
-    div.login_form{
-        box-sizing: border-box;
-        display: flex;
-        width: 50%;
-        height: 60%;
-        justify-content: center;
-        background-color: #333;
-        border-radius: 10px;
-        align-items: center;
-    } 
-    div.login_form>form{
-        width: 90%;
-        height: 95%;
-        align-items: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        gap: 5px;
-    }
-}
-
-
-@media (max-width: 600px) {
-    div.form_flexcont{
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-        margin-top: 17%;
-        height: 90vh;
-        gap: 15px;
-    }
-    
-    div.login_form{
-        height: 50%;
-        width: 70%;
-    }
-    
-    div.login_form>form{
-        width: 90%;
-        height: 95%;
-        align-items: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        gap: 5px;
-    }
-    
-
-}
