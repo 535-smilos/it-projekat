@@ -28,7 +28,7 @@ export const addGenre=(req, res) => {
 
 export const deleteByGenreName=(req, res) => {
     const q = "DELETE FROM zanr WHERE naziv = ?";
-    const value = [req.body.naziv];
+    const value = [req.params.naziv];
     db.query(q, value, (err, data) => {
         if (err) return res.json(err);
         if (data.affectedRows === 0) return res.status(404).json("zanr ne postoji!");

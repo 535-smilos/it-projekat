@@ -15,6 +15,6 @@ router.post("/", addArtist);
 router.put("/", updateByName);
 
 //izbrisi izvodjaca, ponovo se navodi u body ime jer url i razmak
-router.delete("/", deleteArtist);
+router.delete("/:ime", deleteArtist);
 
 export default router;

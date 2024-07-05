@@ -13,9 +13,9 @@ router.get("/specific", getByGenreName);
 router.post("/", addGenre);
 
 //brise zanr, mada samo one koji nisu uvezani sa pjesmom!!!
-router.delete("/:id", deleteByGenreName);
+router.delete("/:naziv", deleteByGenreName);
 
 //azurira ime postojeceg zanra po id-ju zanra!!!
-router.put("/:id", updateByGenreName);
+router.put("/:naziv", updateByGenreName);
 
 export default router;

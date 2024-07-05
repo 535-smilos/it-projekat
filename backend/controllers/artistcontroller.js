@@ -44,7 +44,7 @@ export const updateByName=(req, res)=>{
 };
 
 export const deleteArtist=(req, res)=>{
-    const {ime}=req.body;
+    const {ime}=req.params;
     const q="DELETE from izvodjac where ime=?";
     db.query(q, [ime], (err, data)=>{
         if(err) return res.json(err);
