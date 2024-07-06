@@ -31,9 +31,9 @@ export const getBySongID=(req, res)=>{
 
 export const updateByID=(req, res) => {
     const { id } = req.params;
-    const { naziv, url, ocjena, trajanje, zanr_id } = req.body;
+    const { naziv, url, ocjena, trajanje, naziv_zanra } = req.body;
     const q = "UPDATE PJESMA SET naziv = ?, url = ?, ocjena = ?, trajanje = ?, naziv_zanra = ? WHERE ID = ?";
-    db.query(q, [naziv, url, ocjena, trajanje, zanr_id, id], (err, data) => {
+    db.query(q, [naziv, url, ocjena, trajanje, naziv_zanra, id], (err, data) => {
         if (err) return res.json(err);
         return res.json("Pjesma azurirana!");
     });

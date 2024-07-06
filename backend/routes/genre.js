@@ -6,7 +6,7 @@ const router=express.Router();
 //izlistaj sve zanrove
 router.get("/", getGenres);
 
-//uzima zanr po ID-ju zanra!!!
+//uzima zanr po nazivu zanra!!!
 router.get("/specific", getByGenreName);
 
 //dodaje zanr
@@ -15,7 +15,7 @@ router.post("/", addGenre);
 //brise zanr, mada samo one koji nisu uvezani sa pjesmom!!!
 router.delete("/:naziv", deleteByGenreName);
 
-//azurira ime postojeceg zanra po id-ju zanra!!!
+//azurira ime postojeceg zanra po nazivu zanra!!!
 router.put("/:naziv", updateByGenreName);
 
 export default router;

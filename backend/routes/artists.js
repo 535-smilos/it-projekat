@@ -12,7 +12,7 @@ router.get("/:songid", getArtistsNameBySong);
 router.post("/", addArtist);
 
 //azuriraj ime izvodjaca po njegovom imenu, ovo mora sve preko body-ja(nece url da primi razmak)!!!
-router.put("/", updateByName);
+router.put("/:ime", updateByName);
 
 //izbrisi izvodjaca, ponovo se navodi u body ime jer url i razmak
 router.delete("/:ime", deleteArtist);

@@ -37,9 +37,11 @@ export const deleteByGenreName=(req, res) => {
 };
 
 export const updateByGenreName=(req, res) => {
-    const { stari_naziv, novi_naziv } = req.body;
+    const { naziv }=req.params; 
+    const { naziv_novi } = req.body;
+    console.log(naziv, naziv_novi);
     const q = "UPDATE ZANR SET naziv = ? WHERE naziv = ?";
-    db.query(q, [novi_naziv, stari_naziv], (err, data) => {
+    db.query(q, [naziv_novi, naziv], (err, data) => {
         if (err) return res.json(err);
         return res.json("zanr uspjesno azuriran!");
     });

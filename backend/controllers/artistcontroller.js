@@ -34,9 +34,11 @@ export const addArtist=(req, res)=>{
 };
 
 export const updateByName=(req, res)=>{
-    const {staro_ime, novo_ime}=req.body;
+    const {ime}=req.params;
+    const {novo_ime}=req.body;
+    console.log(ime, novo_ime)
     const q="update izvodjac set ime=? where ime=?";
-    db.query(q, [novo_ime, staro_ime], (err, data)=>{
+    db.query(q, [novo_ime, ime], (err, data)=>{
         if(err) return res.json(err);
         if(data.affectedRows===0) return res.status(404).json("Izvodjac ne postoji!");
         return res.json("Uspjesno preimenovan izvodjac!");
