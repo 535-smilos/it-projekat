@@ -44,6 +44,5 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "http://localhost:3000/login",
   "proxy": "http://localhost:8800/api/"
 }

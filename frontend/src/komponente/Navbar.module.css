@@ -79,7 +79,7 @@ li a:hover{
 
 @media (max-width: 600px) {
     a.naslov{
-        font-size: 20px;
+        font-size: 10px;
         color: green;
     }
 
@@ -92,14 +92,14 @@ li a:hover{
         text-align: center;
         padding: 15px 16px;
         text-decoration: none;
-        font-size: 14px;
+        font-size: 10px;
         font-weight: 500;
     }
 
     ul{
         display: flex;
         position: fixed;
-        width: 100%;
+        width: 80%;
         list-style-type: none;
         margin: 0; padding: 0;
         top: 0%;
@@ -108,7 +108,8 @@ li a:hover{
         background-color: #333;
     }
 
-    .username, .logout{
-
+    .navbar{
+        
     }
+    
 }

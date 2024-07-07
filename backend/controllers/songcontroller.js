@@ -13,9 +13,9 @@ export const getSongs=(req, res) => {
 };
 
 export const addSong=(req, res)=>{
-    const { naziv, url, ocjena, trajanje, zanr_id } = req.body;
+    const { naziv, url, ocjena, trajanje, naziv_zanra } = req.body;
     const q = "INSERT INTO PJESMA (naziv, url, ocjena, trajanje, naziv_zanra) VALUES (?, ?, ?, ?, ?)";
-    db.query(q, [naziv, url, ocjena, trajanje, zanr_id], (err, data) => {
+    db.query(q, [naziv, url, ocjena, trajanje, naziv_zanra], (err, data) => {
         if (err) return res.json(err);
         return res.json("Pjesma dodata!");
     });

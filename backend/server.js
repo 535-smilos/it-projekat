@@ -2,6 +2,8 @@ import express from "express";
 import mysql from "mysql";
 import cors from "cors";
 import bodyParser from "body-parser";
+import path from "path";
+import { fileURLToPath } from "url";
 
 import songRoutes from "./routes/songs.js";
 import userRoutes from "./routes/users.js";
@@ -22,11 +24,20 @@ export const db = mysql.createConnection({
     database: "soundsphere"
 });
 
+const __filename = fileURLToPath(import.meta.url);
+console.log(__filename);
 app.use(cors());
 app.use(express.json());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
-app.use(express.static("public"));
+app.use(express.static("./public"));
+const __dirname = path.dirname(__filename);
+const staticImagePath = path.join(__dirname, "public", "slike");
+
+console.log(staticImagePath);  // Verify the path is correct
+
+// Serve static files from the "public/slike" directory
+app.use("/public/slike", express.static(staticImagePath));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({extended:true}));
 
 
 app.use("/api/songs", songRoutes);

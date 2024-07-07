@@ -54,3 +54,22 @@ h2, h3{
     padding: 50px;
     margin: 5px;
 }
+
+button{
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    font-family: "Montserrat";
+    font-weight: bold;
+    text-wrap: wrap;
+}
+
+.Buttons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}

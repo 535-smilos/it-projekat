@@ -251,7 +251,7 @@ const PerformCard = ({ perform, onDelete, onEdit }) => {
               onChange={(e) =>
                 setPerformer({ ...performer, id_pjesma: e.target.value })
               }
-              />
+            />
             <input
               type="text"
               value={performer.ime_izvodjac}
@@ -323,7 +323,7 @@ const AddForm = () => {
   const handleSongChange = async (e) => {
     e.preventDefault();
     try {
-      console.log((await axios.post("/songs/", song)).data);
+      const res=await axios.post("/songs/", song);
     } catch (err) {
       alert("Greska pri dodavanju pjesme!");
       console.log(err.response.data);
@@ -349,10 +349,12 @@ const AddForm = () => {
 
   return (
     <>
-      <button onClick={() => setEditing(0)}>Add Genre</button>
-      <button onClick={() => setEditing(1)}>Add Artist</button>
-      <button onClick={() => setEditing(2)}>Add Song</button>
-      <button onClick={() => setEditing(3)}>Add Perform</button>
+      <div className={styles.Buttons}>
+        <button onClick={() => setEditing(0)}>Add Genre</button>
+        <button onClick={() => setEditing(1)}>Add Artist</button>
+        <button onClick={() => setEditing(2)}>Add Song</button>
+        <button onClick={() => setEditing(3)}>Add Perform</button>
+      </div>
 
       {isEditing === 0 && (
         <div className={styles.addGenre}>
@@ -492,7 +494,6 @@ const Admin = () => {
   const getPerforms = async () => {
     try {
       const res = await axios.get("http://localhost:8800/api/performs");
-      console.log(res.data);
       setPerform(res.data);
     } catch (err) {
       console.error(err);
@@ -577,7 +578,7 @@ const Admin = () => {
     getPerforms();
   }, []);
 
-  const [display, setDisplay]=useState(-1);
+  const [display, setDisplay] = useState(-1);
 
   return (
     <>
@@ -586,69 +587,85 @@ const Admin = () => {
         <h2>ADMIN STRANICA</h2>
         <div className={styles.adminWrapper}>
           <AddForm />
+          <div className={styles.Buttons}>
+            <button onClick={() => setDisplay(0)}>Show User Management</button>
+            <button onClick={() => setDisplay(1)}>Show Song Management</button>
+            <button onClick={() => setDisplay(2)}>Show Genre Management</button>
+            <button onClick={() => setDisplay(3)}>
+              Show Artist Management
+            </button>
+            <button onClick={() => setDisplay(4)}>
+              Show Perform Management
+            </button>
+            {display!==-1 &&
+              <button onClick={() => setDisplay(-1)}>CANCEL</button>
+            }
+          </div>
 
-          <button onClick={()=>setDisplay(0)}>Show User Management</button>
-          <button onClick={()=>setDisplay(1)}>Show Song Management</button>
-          <button onClick={()=>setDisplay(2)}>Show Genre Management</button>
-          <button onClick={()=>setDisplay(3)}>Show Artist Management</button>
-          <button onClick={()=>setDisplay(4)}>Show Perform Management</button>
-          <button onClick={()=>setDisplay(-1)}>CANCEL</button>
+          {display === 0 && (
+            <div className={styles.UserManagement}>
+              
+              {users.map((user) => (
+                <UserCard
+                  key={user.username}
+                  user={user}
+                  onDelete={handleDeleteUser}
+                />
+              ))}
+            </div>
+          )}
+          {display === 1 && (
+            <div className={styles.SongManagement}>
 
+              {songs.map((song) => (
+                <SongCard
+                  key={song.ID}
+                  song={song}
+                  onEdit={handleEditSong}
+                  onDelete={handleDeleteSong}
+                />
+              ))}
+            </div>
+          )}
+          {display === 2 && (
+            <div className={styles.GenreManagement}>
 
-          { display===0 && <div className={styles.UserManagement}>
-            <h3>Manage Users</h3>
-            {users.map((user) => (
-              <UserCard
-                key={user.username}
-                user={user}
-                onDelete={handleDeleteUser}
-              />
-            ))}
-          </div>}
-          { display===1 && <div className={styles.SongManagement}>
-            <h3>Manage Songs</h3>
-            {songs.map((song) => (
-              <SongCard
-                key={song.ID}
-                song={song}
-                onEdit={handleEditSong}
-                onDelete={handleDeleteSong}
-              />
-            ))}
-          </div>}
-          {display===2 && <div className={styles.GenreManagement}>
-            <h3>Manage Genres</h3>
-            {genres.map((genre) => (
-              <GenreCard
-                key={genre.ID}
-                genre={genre}
-                onDelete={handleDeleteGenre}
-                onEdit={handleEditGenre}
-              />
-            ))}
-          </div>}
-          {display===3 && <div className={styles.ArtistManagement}>
-            <h3>Manage Artists</h3>
-            {artists.map((artist) => (
-              <ArtistCard
-                key={artist.ime}
-                artist={artist}
-                onDelete={handleDeleteArtist}
-                onEdit={handleEditArtist}
-              />
-            ))}
-          </div>}
-          {display===4 && <div className={styles.PerformManagement}>
-            <h3>Manage Performs</h3>
-            {perform.map((perf) => (
-              <PerformCard
-                key={perf.id_pjesma}
-                perform={perf}
-                onDelete={handleDeletePerform}
-                onEdit={handleEditPerform}
-              />
-            ))}
-          </div>}
+              {genres.map((genre) => (
+                <GenreCard
+                  key={genre.ID}
+                  genre={genre}
+                  onDelete={handleDeleteGenre}
+                  onEdit={handleEditGenre}
+                />
+              ))}
+            </div>
+          )}
+          {display === 3 && (
+            <div className={styles.ArtistManagement}>
+
+              {artists.map((artist) => (
+                <ArtistCard
+                  key={artist.ime}
+                  artist={artist}
+                  onDelete={handleDeleteArtist}
+                  onEdit={handleEditArtist}
+                />
+              ))}
+            </div>
+          )}
+          {display === 4 && (
+            <div className={styles.PerformManagement}>
+
+              {perform.map((perf) => (
+                <PerformCard
+                  key={perf.id_pjesma}
+                  perform={perf}
+                  onDelete={handleDeletePerform}
+                  onEdit={handleEditPerform}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </>

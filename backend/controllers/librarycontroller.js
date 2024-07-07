@@ -2,18 +2,57 @@ import { db } from "../server.js";
 
 export const getLikedByUser = (req, res) => {
   const { username } = req.params;
-  const q = `
-    SELECT PJESMA.ID, PJESMA.naziv, PJESMA.url, PJESMA.ocjena, PJESMA.trajanje, IZVODJAC.ime AS artist
+  const {search, filter, sort}=req.query;
+
+  let baseQuery = `
+    SELECT PJESMA.ID, PJESMA.naziv, PJESMA.url, PJESMA.trajanje, PJESMA.naziv_zanra, PJESMA_KORISNIK.ocjena, IZVODJAC.ime AS artist
     FROM PJESMA
     INNER JOIN PJESMA_KORISNIK ON PJESMA.ID = PJESMA_KORISNIK.id_pjesma
     INNER JOIN PJESMA_IZVODJAC ON PJESMA.ID = PJESMA_IZVODJAC.id_pjesma
     INNER JOIN IZVODJAC ON PJESMA_IZVODJAC.ime_izvodjac = IZVODJAC.ime
+    INNER JOIN ZANR ON PJESMA.naziv_zanra = ZANR.naziv
     WHERE PJESMA_KORISNIK.korisnik_username = ?
     `;
-  db.query(q, [username], (err, data) => {
-    if (err) return res.json(err);
-    return res.json(data);
-  });
+    const queryParams=[username];
+
+    if(search){
+      baseQuery+=` AND (PJESMA.naziv LIKE ? OR IZVODJAC.ime LIKE ? OR PJESMA.naziv_zanra LIKE ?)`;
+      const searchQuery=`%${search}%`;
+      queryParams.push(searchQuery, searchQuery, searchQuery);
+    }
+
+    if (filter !== '-') {
+      let column;
+      switch (filter) {
+        case 'Genre':
+          column = 'PJESMA.naziv_zanra';
+          break;
+        case 'Artist':
+          column = 'artist';
+          break;
+        case 'Title':
+          column = 'PJESMA.naziv';
+          break;
+        case 'Duration':
+          column = 'PJESMA.trajanje';
+          break;
+        case 'Rating':
+          column = 'PJESMA_KORISNIK.ocjena';
+          break;
+        default:
+          column = null;
+          break;
+      }
+      if (column) {
+        baseQuery += ` ORDER BY ${column} ${sort === 'asc' ? 'ASC' : 'DESC'}`;
+      }
+    }
+
+ 
+    db.query(baseQuery, queryParams, (err, data) => {
+      if (err) return res.json(err);
+      return res.json(data);
+    });
 };
 
 export const getRestOfSongs = (req, res) => {
@@ -74,7 +113,6 @@ export const getRestOfSongs = (req, res) => {
 
 export const likeSong = (req, res) => {
   const { username, song_id } = req.params;
-  console.log(req.params);
   const { ocjena } = req.body; //opciono
   const checkUserQuery = "SELECT * FROM KORISNIK WHERE username = ?";
   db.query(checkUserQuery, [username], (err, userResult) => {

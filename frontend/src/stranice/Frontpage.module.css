@@ -53,7 +53,7 @@ div.kartice>div {
 div.kartice>div>h2,p {
     text-align: left;
     width: 100%;
-    margin: 10px;
+    padding: 3px;
     word-wrap: break-word;
 }
 
@@ -107,7 +107,7 @@ div.kartice>div>button {
 }
 
 .Buttons{
-    margin-top: 10px;
+    margin-top: 0px;
     display: flex;
     justify-content: center;
     gap: 5px;
@@ -127,6 +127,7 @@ div.kartice>div>button {
 
 .addBtn{
     margin-bottom: 5px;
+    margin-top: 0;
 }
 
 .novostheading{

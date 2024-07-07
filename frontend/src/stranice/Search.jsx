@@ -93,9 +93,9 @@ const Search = () => {
             <option value="Rating">Rating</option>
           </select>
           <form>
-            <label htmlFor="asc">^</label>
+            <label htmlFor="asc">Λ</label>
             <input type="radio" name="sort" id="asc" value="asc" checked={sortOption === "asc"} onChange={(e) => setSortOption(e.target.value)} />
-            <label htmlFor="desc">v</label>
+            <label htmlFor="desc">V</label>
             <input type="radio" name="sort" id="desc" value="desc" checked={sortOption === "desc"} onChange={(e) => setSortOption(e.target.value)} />
           </form>
         </div>
