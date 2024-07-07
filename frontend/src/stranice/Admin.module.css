@@ -42,7 +42,7 @@ h2, h3{
     flex-wrap: wrap;
 }
 
-.ArtistManagement{
+.ArtistManagement, .PerformManagement{
     display: flex;
     align-items: center;
     flex-wrap: wrap;

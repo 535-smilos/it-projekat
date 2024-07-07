@@ -34,37 +34,74 @@ const SongCard = ({ song, onDelete, onEdit }) => {
     }
   };
   const [editing, setEditing] = useState(false);
-  const [editSong, setEditSong]=useState(song);
-  const handleSongEdit=async()=>{
-    try{
-      const res=await axios.put(`/songs/${song.ID}`, editSong);
+  const [editSong, setEditSong] = useState(song);
+  const handleSongEdit = async () => {
+    try {
+      const res = await axios.put(`/songs/${song.ID}`, editSong);
       onEdit(editSong);
       setEditing(false);
-    } catch(err){
+    } catch (err) {
       console.error(err);
     }
   };
-
-
 
   return (
     <div key={song.ID} className={styles.songInfo}>
       {!editing ? (
         <>
+          {song.ID}
           <h5>{song.naziv}</h5>
           <h5>{song.ime_izvodjac}</h5>
           <button onClick={handleSongDelete}>DELETE SONG</button>
-          <button onClick={()=>setEditing(true)}>EDIT SONG</button>
+          <button onClick={() => setEditing(true)}>EDIT SONG</button>
         </>
       ) : (
         <div className={styles.EditDiv}>
-          <input type="text" name="naziv" value={editSong.naziv} className={styles.NewSongInput} onChange={(e)=>setEditSong({...editSong,naziv:e.target.value})}/>
-          <input type="text" name="url" value={editSong.url} className={styles.NewSongInput} onChange={(e)=>setEditSong({...editSong,url:e.target.value})}/>
-          <input type="text" name="ocjena" value={editSong.ocjena} className={styles.NewSongInput} onChange={(e)=>setEditSong({...editSong, ocjena:e.target.value})}/>
-          <input type="text" name="trajanje" value={editSong.trajanje} className={styles.NewSongInput} onChange={(e)=>setEditSong({...editSong, trajanje:e.target.value})}/>
-          <input type="text" name="url" value={editSong.naziv_zanra} className={styles.NewSongInput} onChange={(e)=>setEditSong({...editSong, naziv_zanra:e.target.value})}/>
+          <input
+            type="text"
+            name="naziv"
+            value={editSong.naziv}
+            className={styles.NewSongInput}
+            onChange={(e) =>
+              setEditSong({ ...editSong, naziv: e.target.value })
+            }
+          />
+          <input
+            type="text"
+            name="url"
+            value={editSong.url}
+            className={styles.NewSongInput}
+            onChange={(e) => setEditSong({ ...editSong, url: e.target.value })}
+          />
+          <input
+            type="text"
+            name="ocjena"
+            value={editSong.ocjena}
+            className={styles.NewSongInput}
+            onChange={(e) =>
+              setEditSong({ ...editSong, ocjena: e.target.value })
+            }
+          />
+          <input
+            type="text"
+            name="trajanje"
+            value={editSong.trajanje}
+            className={styles.NewSongInput}
+            onChange={(e) =>
+              setEditSong({ ...editSong, trajanje: e.target.value })
+            }
+          />
+          <input
+            type="text"
+            name="url"
+            value={editSong.naziv_zanra}
+            className={styles.NewSongInput}
+            onChange={(e) =>
+              setEditSong({ ...editSong, naziv_zanra: e.target.value })
+            }
+          />
           <button onClick={handleSongEdit}>SAVE</button>
-          <button onClick={()=>setEditing(false)}>CANCEL</button>
+          <button onClick={() => setEditing(false)}>CANCEL</button>
         </div>
       )}
     </div>
@@ -81,17 +118,17 @@ const GenreCard = ({ genre, onDelete, onEdit }) => {
     }
   };
   const [editing, setEditing] = useState(false);
-  const [editGenre, setEditGenre]=useState(genre);
+  const [editGenre, setEditGenre] = useState(genre);
 
-  const handleGenreEdit=async()=>{
-    try{
-      const res=await axios.put(`/genres/${genre.naziv}`, editGenre);
+  const handleGenreEdit = async () => {
+    try {
+      const res = await axios.put(`/genres/${genre.naziv}`, editGenre);
       onEdit(editGenre);
       setEditing(false);
-    } catch(err){
+    } catch (err) {
       console.error(err);
     }
-  }
+  };
 
   return (
     <div key={genre.ID} className={styles.genreInfo}>
@@ -99,20 +136,27 @@ const GenreCard = ({ genre, onDelete, onEdit }) => {
         <>
           <h5>{genre.naziv}</h5>
           <button onClick={handleGenreDelete}>DELETE</button>
-          <button onClick={()=>setEditing(true)}>EDIT</button>
+          <button onClick={() => setEditing(true)}>EDIT</button>
         </>
       ) : (
-       <div className={styles.EditDiv}>
-          <input type="text" name="naziv" value={editGenre.naziv_novi} onChange={(e)=>setEditGenre({...editGenre, naziv_novi:e.target.value})} />
+        <div className={styles.EditDiv}>
+          <input
+            type="text"
+            name="naziv"
+            value={editGenre.naziv_novi}
+            onChange={(e) =>
+              setEditGenre({ ...editGenre, naziv_novi: e.target.value })
+            }
+          />
           <button onClick={handleGenreEdit}>SAVE</button>
-          <button onClick={()=>setEditing(false)}>CANCEL</button>
-       </div>
+          <button onClick={() => setEditing(false)}>CANCEL</button>
+        </div>
       )}
     </div>
   );
 };
 
-const ArtistCard = ({ artist, onDelete , onEdit}) => {
+const ArtistCard = ({ artist, onDelete, onEdit }) => {
   const handleArtistDelete = async () => {
     try {
       const res = await axios.delete(`/artists/${artist.ime}`);
@@ -122,17 +166,17 @@ const ArtistCard = ({ artist, onDelete , onEdit}) => {
     }
   };
   const [editing, setEditing] = useState(false);
-  const [editArtist, setEditArtist]=useState(artist);
+  const [editArtist, setEditArtist] = useState(artist);
 
-  const handleArtistEdit=async()=>{
-    try{
-      const res=await axios.put(`/artists/${artist.ime}`, editArtist);
+  const handleArtistEdit = async () => {
+    try {
+      const res = await axios.put(`/artists/${artist.ime}`, editArtist);
       onEdit(editArtist);
       setEditing(false);
-    } catch(err){
+    } catch (err) {
       console.error(err);
     }
-  }
+  };
 
   return (
     <div key={artist.ime} className={styles.artistInfo}>
@@ -140,25 +184,272 @@ const ArtistCard = ({ artist, onDelete , onEdit}) => {
         <>
           <h5>{artist.ime}</h5>
           <button onClick={handleArtistDelete}>DELETE</button>
-          <button onClick={()=>setEditing(true)}>EDIT</button>
+          <button onClick={() => setEditing(true)}>EDIT</button>
         </>
       ) : (
         <div className={styles.EditDiv}>
-          <input type="text" value={editArtist.novo_ime} onChange={(e)=>setEditArtist({...editArtist, novo_ime:e.target.value})}/>
+          <input
+            type="text"
+            value={editArtist.novo_ime}
+            onChange={(e) =>
+              setEditArtist({ ...editArtist, novo_ime: e.target.value })
+            }
+          />
           <button onClick={handleArtistEdit}>SAVE</button>
-          <button onClick={()=>setEditing(false)}>CANCEL</button>
+          <button onClick={() => setEditing(false)}>CANCEL</button>
         </div>
       )}
     </div>
   );
 };
 
+const PerformCard = ({ perform, onDelete, onEdit }) => {
+  const handlePerformDelete = async () => {
+    try {
+      const res = await axios.delete(
+        `/performs/${perform.id_pjesma}/${perform.ime_izvodjac}`
+      );
+      onDelete(perform);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handlePerformEdit = async () => {
+    try {
+      const res = await axios.put(`/performs/`, {
+        song_id: perform.id_pjesma,
+        ime_izvodjac: perform.ime_izvodjac,
+        novi_song_id: performer.id_pjesma,
+        novi_izvodjac: performer.ime_izvodjac,
+      });
+      onEdit(performer);
+      setEditing(false);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const [performer, setPerformer] = useState(perform);
+  const [editing, setEditing] = useState(false);
+  return (
+    <>
+      <div key={perform.id_pjesma} className={styles.artistInfo}>
+        {!editing ? (
+          <>
+            <h5>{perform.ime_izvodjac}</h5>
+            <h5>{perform.id_pjesma}</h5>
+            <button onClick={handlePerformDelete}>DELETE</button>
+            <button onClick={() => setEditing(true)}>EDIT</button>
+          </>
+        ) : (
+          <div className={styles.EditDiv}>
+            <input
+              type="text"
+              value={performer.id_pjesma}
+              placeholder="novi_id"
+              onChange={(e) =>
+                setPerformer({ ...performer, id_pjesma: e.target.value })
+              }
+              />
+            <input
+              type="text"
+              value={performer.ime_izvodjac}
+              placeholder="novo_ime"
+              onChange={(e) =>
+                setPerformer({ ...performer, ime_izvodjac: e.target.value })
+              }
+            />
+            <button onClick={handlePerformEdit}>SAVE</button>
+            <button onClick={() => setEditing(false)}>CANCEL</button>
+          </div>
+        )}
+      </div>
+    </>
+  );
+};
+
+const AddForm = () => {
+  const [isEditing, setEditing] = useState(-1);
+
+  const [genre, setGenre] = useState();
+  const [artist, setArtist] = useState();
+  const [song, setSong] = useState({
+    naziv: "",
+    url: "",
+    ocjena: "",
+    trajanje: "",
+    naziv_zanra: "",
+  });
+  const [perform, setPerform] = useState({
+    song_id: "",
+    izvodjac: "",
+  });
+
+  const GenreChange = (e) => {
+    setGenre({ [e.target.name]: e.target.value });
+  };
+
+  const ArtistChange = (e) => {
+    setArtist({ [e.target.name]: e.target.value });
+  };
+
+  const SongChange = (e) => {
+    setSong((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const PerformChange = (e) => {
+    setPerform((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleGenreChange = async (e) => {
+    e.preventDefault();
+    try {
+      alert((await axios.post("/genres/", genre)).data);
+    } catch (err) {
+      alert(err.response.data);
+    }
+  };
+
+  const handleArtistChange = async (e) => {
+    e.preventDefault();
+    try {
+      alert((await axios.post("/artists/", artist)).data);
+    } catch (err) {
+      alert(err.response.data);
+    }
+  };
+
+  const handleSongChange = async (e) => {
+    e.preventDefault();
+    try {
+      console.log((await axios.post("/songs/", song)).data);
+    } catch (err) {
+      alert("Greska pri dodavanju pjesme!");
+      console.log(err.response.data);
+    }
+  };
+
+  const handlePerformChange = async (e) => {
+    e.preventDefault();
+    try {
+      alert((await axios.post("/performs/", perform)).data);
+    } catch (err) {
+      alert(err.response.data);
+    }
+  };
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/login");
+    }
+  });
+
+  return (
+    <>
+      <button onClick={() => setEditing(0)}>Add Genre</button>
+      <button onClick={() => setEditing(1)}>Add Artist</button>
+      <button onClick={() => setEditing(2)}>Add Song</button>
+      <button onClick={() => setEditing(3)}>Add Perform</button>
+
+      {isEditing === 0 && (
+        <div className={styles.addGenre}>
+          <form>
+            <label htmlFor="genre">Dodaj zanr(po imenu)</label>
+            <input type="text" name="naziv" id="genre" onChange={GenreChange} />
+
+            <button onClick={handleGenreChange}>Dodaj zanr</button>
+            <button onClick={() => setEditing(-1)}>Cancel</button>
+          </form>
+        </div>
+      )}
+      {isEditing === 1 && (
+        <div className={styles.addArtist}>
+          <form>
+            <label htmlFor="artist">Dodaj izvodjaca(po imenu)</label>
+            <input type="text" name="ime" id="artist" onChange={ArtistChange} />
+
+            <button onClick={handleArtistChange}>Dodaj izvodjaca</button>
+            <button onClick={() => setEditing(-1)}>Cancel</button>
+          </form>
+        </div>
+      )}
+      {isEditing === 2 && (
+        <div className={styles.addSong}>
+          <form>
+            <label htmlFor="name">Dodaj naziv pjesme</label>
+            <input type="text" name="naziv" id="name" onChange={SongChange} />
+
+            <label htmlFor="link">Dodaj URL pjesme</label>
+            <input type="text" name="url" id="link" onChange={SongChange} />
+
+            <label htmlFor="globalrate">Unesi opstu ocjenu pjesme</label>
+            <input
+              type="text"
+              name="ocjena"
+              id="globalrate"
+              onChange={SongChange}
+            />
+
+            <label htmlFor="duration">Unesi trajanje pjesme</label>
+            <input
+              type="text"
+              name="trajanje"
+              id="duration"
+              onChange={SongChange}
+            />
+
+            <label htmlFor="genrename">Unesi naziv zanra</label>
+            <input
+              type="text"
+              name="naziv_zanra"
+              id="genrename"
+              onChange={SongChange}
+            />
+
+            <button onClick={handleSongChange}>Dodaj pjesmu</button>
+            <button onClick={() => setEditing(-1)}>Cancel</button>
+          </form>
+        </div>
+      )}
+      {isEditing === 3 && (
+        <div className={styles.addPerformer}>
+          <form>
+            <label htmlFor="pjesma">Unesi pjesmin ID</label>
+            <input
+              type="text"
+              name="song_id"
+              id="pjesma"
+              onChange={PerformChange}
+            />
+
+            <label htmlFor="performer">Unesi ime izvodjaca</label>
+            <input
+              type="text"
+              name="izvodjac"
+              id="performer"
+              onChange={PerformChange}
+            />
+
+            <button onClick={handlePerformChange}>
+              Uvezi izvodjaca sa pjesmom
+            </button>
+            <button onClick={() => setEditing(-1)}>Cancel</button>
+          </form>
+        </div>
+      )}
+    </>
+  );
+};
 
 const Admin = () => {
   const [users, setUsers] = useState([]);
   const [songs, setSongs] = useState([]);
   const [genres, setGenres] = useState([]);
   const [artists, setArtists] = useState([]);
+  const [perform, setPerform] = useState([]);
   const navigate = useNavigate();
 
   const getUsers = async () => {
@@ -198,6 +489,16 @@ const Admin = () => {
     }
   };
 
+  const getPerforms = async () => {
+    try {
+      const res = await axios.get("http://localhost:8800/api/performs");
+      console.log(res.data);
+      setPerform(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const handleDeleteUser = (username) => {
     setUsers(users.filter((user) => user.username !== username));
   };
@@ -212,19 +513,41 @@ const Admin = () => {
 
   const handleDeleteArtist = (ime) => {
     setArtists(artists.filter((artist) => artist.ime !== ime));
-    };
+  };
 
-  const handleEditSong = (editedSong)=>{
-    setSongs(songs.map(song=>song.ID===editedSong.ID?editedSong:song));
-  }
+  const handleDeletePerform = (id) => {
+    setPerform(perform.filter((perf) => perf.id_pjesma !== id));
+  };
 
-  const handleEditGenre=(editedGenre)=>{
-    setGenres(genres.map(genre=>genre.naziv===editedGenre.naziv?editedGenre:genre));
-  }
+  const handleEditPerform = (editedPerf) => {
+    setPerform(
+      perform.map((perf) =>
+        perf.id_pjesma === editedPerf.id_pjesma ? editedPerf : perf
+      )
+    );
+  };
 
-  const handleEditArtist=(editedArtist)=>{
-    setArtists(artists.map(artist=>artist.ime===editedArtist.ime?editedArtist:artist));
-  }
+  const handleEditSong = (editedSong) => {
+    setSongs(
+      songs.map((song) => (song.ID === editedSong.ID ? editedSong : song))
+    );
+  };
+
+  const handleEditGenre = (editedGenre) => {
+    setGenres(
+      genres.map((genre) =>
+        genre.naziv === editedGenre.naziv ? editedGenre : genre
+      )
+    );
+  };
+
+  const handleEditArtist = (editedArtist) => {
+    setArtists(
+      artists.map((artist) =>
+        artist.ime === editedArtist.ime ? editedArtist : artist
+      )
+    );
+  };
 
   const checkAdmin = () => {
     const token = localStorage.getItem("token");
@@ -251,7 +574,10 @@ const Admin = () => {
     getSongs();
     getGenres();
     getArtists();
+    getPerforms();
   }, []);
+
+  const [display, setDisplay]=useState(-1);
 
   return (
     <>
@@ -259,8 +585,18 @@ const Admin = () => {
       <div className={styles.adminContainer}>
         <h2>ADMIN STRANICA</h2>
         <div className={styles.adminWrapper}>
-          <div className={styles.UserManagement}>
-          <h3>Manage Users</h3>
+          <AddForm />
+
+          <button onClick={()=>setDisplay(0)}>Show User Management</button>
+          <button onClick={()=>setDisplay(1)}>Show Song Management</button>
+          <button onClick={()=>setDisplay(2)}>Show Genre Management</button>
+          <button onClick={()=>setDisplay(3)}>Show Artist Management</button>
+          <button onClick={()=>setDisplay(4)}>Show Perform Management</button>
+          <button onClick={()=>setDisplay(-1)}>CANCEL</button>
+
+
+          { display===0 && <div className={styles.UserManagement}>
+            <h3>Manage Users</h3>
             {users.map((user) => (
               <UserCard
                 key={user.username}
@@ -268,15 +604,20 @@ const Admin = () => {
                 onDelete={handleDeleteUser}
               />
             ))}
-          </div>
-          <div className={styles.SongManagement}>
-          <h3>Manage Songs</h3>
+          </div>}
+          { display===1 && <div className={styles.SongManagement}>
+            <h3>Manage Songs</h3>
             {songs.map((song) => (
-              <SongCard key={song.ID} song={song} onEdit={handleEditSong} onDelete={handleDeleteSong} />
+              <SongCard
+                key={song.ID}
+                song={song}
+                onEdit={handleEditSong}
+                onDelete={handleDeleteSong}
+              />
             ))}
-          </div>
-          <div className={styles.GenreManagement}>
-          <h3>Manage Genres</h3>
+          </div>}
+          {display===2 && <div className={styles.GenreManagement}>
+            <h3>Manage Genres</h3>
             {genres.map((genre) => (
               <GenreCard
                 key={genre.ID}
@@ -285,18 +626,29 @@ const Admin = () => {
                 onEdit={handleEditGenre}
               />
             ))}
-          </div>
-            <div className={styles.ArtistManagement}>
+          </div>}
+          {display===3 && <div className={styles.ArtistManagement}>
             <h3>Manage Artists</h3>
-                {artists.map((artist) => (
-                    <ArtistCard
-                        key={artist.ime}
-                        artist={artist}
-                        onDelete={handleDeleteArtist}
-                        onEdit={handleEditArtist}
-                    />
-                ))}
-                </div>
+            {artists.map((artist) => (
+              <ArtistCard
+                key={artist.ime}
+                artist={artist}
+                onDelete={handleDeleteArtist}
+                onEdit={handleEditArtist}
+              />
+            ))}
+          </div>}
+          {display===4 && <div className={styles.PerformManagement}>
+            <h3>Manage Performs</h3>
+            {perform.map((perf) => (
+              <PerformCard
+                key={perf.id_pjesma}
+                perform={perf}
+                onDelete={handleDeletePerform}
+                onEdit={handleEditPerform}
+              />
+            ))}
+          </div>}
         </div>
       </div>
     </>

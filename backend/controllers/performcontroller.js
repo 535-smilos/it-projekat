@@ -27,10 +27,20 @@ export const addArtistSong=(req, res)=>{
 };
 
 export const deleteArtistSong=(req, res)=>{
-    const {song_id, izvodjac}=req.body;
+    const {song_id, izvodjac}=req.params;
     const q="DELETE from pjesma_izvodjac where id_pjesma=? and ime_izvodjac=?";
     db.query(q, [song_id, izvodjac], (err, data)=>{
         if(err) return res.json(err);
         return res.json("Uspjesno izbrisana veza pjesme i izvodjaca!");
     });
 };
+
+export const editArtistSong=(req, res)=>{
+    const {song_id, ime_izvodjac, novi_song_id, novi_izvodjac}=req.body;
+    const q=`UPDATE pjesma_izvodjac SET id_pjesma=?, ime_izvodjac=? WHERE
+            id_pjesma=? AND ime_izvodjac=?`;
+    db.query(q, [novi_song_id, novi_izvodjac, song_id, ime_izvodjac], (err, data)=>{
+        if(err) return res.json(err);
+        return res.json("Uspjesno azurirana veza izvodjaca i pjesme!");
+    });
+}
