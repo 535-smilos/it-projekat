@@ -73,3 +73,9 @@ button{
     justify-content: center;
     gap: 5px;
 }
+
+.addGenre, .addArtist, .addSong, .addPerformer{
+    background-color: #333;
+    color: white;
+    width: 50%;
+}

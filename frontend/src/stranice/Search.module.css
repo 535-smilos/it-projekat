@@ -114,11 +114,12 @@ div.ResultContainer {
     align-self: center;
     padding: 5px 10px;
     border: none;
-    border-radius: 5px;
-    background-color: #666;
-    color: white;
+    border-radius: 22.5px;
+    background-color: white;
+    color: black;
     cursor: pointer;
     font-family: "Montserrat";
+    margin: 0;
 }
 
 .ListItemResult:hover {

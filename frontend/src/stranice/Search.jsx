@@ -65,12 +65,12 @@ const Search = () => {
       <h5>{song.trajanje}</h5>
       <h5>{song.zanr_naziv}</h5>
       <h5>{song.ocjena}</h5>
-      <h4>{currentUser.je_admin === 0 ? (
-        <button onClick={() => addSongEvent(song.ID)}>Dodaj pjesmu</button>
+      {currentUser.je_admin === 0 ? (
+        <button className={styles.Dodaj} onClick={() => addSongEvent(song.ID)}>Dodaj pjesmu</button>
       ) : (
         ""
       )}
-      </h4>
+      
     </div>
   );
 
@@ -93,7 +93,7 @@ const Search = () => {
             <option value="Rating">Rating</option>
           </select>
           <form>
-            <label htmlFor="asc">Λ</label>
+            <label htmlFor="asc" style={{"fontFamily":"sans-serif"}}>Λ</label>
             <input type="radio" name="sort" id="asc" value="asc" checked={sortOption === "asc"} onChange={(e) => setSortOption(e.target.value)} />
             <label htmlFor="desc">V</label>
             <input type="radio" name="sort" id="desc" value="desc" checked={sortOption === "desc"} onChange={(e) => setSortOption(e.target.value)} />

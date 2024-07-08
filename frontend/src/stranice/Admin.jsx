@@ -5,11 +5,12 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import { jwtDecode } from "jwt-decode";
 
-const UserCard = ({ user, onDelete }) => {
+const UserCard = ({ user, onDelete, getUsers }) => {
   const handleDelete = async () => {
     try {
       const res = await axios.delete(`/users/${user.username}`);
       onDelete(user.username);
+      getUsers();
     } catch (err) {
       console.error(err);
     }
@@ -269,7 +270,7 @@ const PerformCard = ({ perform, onDelete, onEdit }) => {
   );
 };
 
-const AddForm = () => {
+const AddForm = ({getArtists, getSongs, getPerforms, getGenres}) => {
   const [isEditing, setEditing] = useState(-1);
 
   const [genre, setGenre] = useState();
@@ -306,6 +307,7 @@ const AddForm = () => {
     e.preventDefault();
     try {
       alert((await axios.post("/genres/", genre)).data);
+      getGenres();
     } catch (err) {
       alert(err.response.data);
     }
@@ -315,6 +317,7 @@ const AddForm = () => {
     e.preventDefault();
     try {
       alert((await axios.post("/artists/", artist)).data);
+      getArtists();
     } catch (err) {
       alert(err.response.data);
     }
@@ -324,6 +327,8 @@ const AddForm = () => {
     e.preventDefault();
     try {
       const res=await axios.post("/songs/", song);
+      getSongs();
+
     } catch (err) {
       alert("Greska pri dodavanju pjesme!");
       console.log(err.response.data);
@@ -334,6 +339,7 @@ const AddForm = () => {
     e.preventDefault();
     try {
       alert((await axios.post("/performs/", perform)).data);
+      getPerforms();
     } catch (err) {
       alert(err.response.data);
     }
@@ -586,7 +592,7 @@ const Admin = () => {
       <div className={styles.adminContainer}>
         <h2>ADMIN STRANICA</h2>
         <div className={styles.adminWrapper}>
-          <AddForm />
+          <AddForm getArtists={getArtists} getGenres={getGenres} getSongs={getSongs} getPerforms={getPerforms} />
           <div className={styles.Buttons}>
             <button onClick={() => setDisplay(0)}>Show User Management</button>
             <button onClick={() => setDisplay(1)}>Show Song Management</button>
@@ -606,7 +612,7 @@ const Admin = () => {
             <div className={styles.UserManagement}>
               
               {users.map((user) => (
-                <UserCard
+                <UserCard getUsers={getUsers}
                   key={user.username}
                   user={user}
                   onDelete={handleDeleteUser}

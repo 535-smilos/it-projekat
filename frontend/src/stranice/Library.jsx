@@ -194,7 +194,7 @@ const Library = () => {
             <option value="Genre">Genre</option>
           </select>
           <div className={styles.OrderRadioButtons}>
-            <label htmlFor='sort'>Λ
+            <label htmlFor='sort' style={{"fontFamily":"sans-serif"}}>Λ
               </label>
               <input
                 type="radio"
