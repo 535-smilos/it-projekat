@@ -79,7 +79,7 @@ li a:hover{
 
 @media (max-width: 600px) {
     a.naslov{
-        font-size: 10px;
+        font-size: 1.1em;
         color: green;
     }
 
@@ -92,7 +92,7 @@ li a:hover{
         text-align: center;
         padding: 15px 16px;
         text-decoration: none;
-        font-size: 10px;
+        font-size: 0.65em;
         font-weight: 500;
     }
 

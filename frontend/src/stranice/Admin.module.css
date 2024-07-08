@@ -79,3 +79,41 @@ button{
     color: white;
     width: 50%;
 }
+
+@media (max-width: 768px) {
+    .adminContainer {
+        margin-top: 40px;
+    }
+    .userInfo, .songInfo, .genreInfo, .artistInfo {
+        padding: 25px;
+        margin: 10px;
+    }
+    button {
+        padding: 8px;
+        font-size: 0.8rem;
+    }
+    .addGenre, .addArtist, .addSong, .addPerformer {
+        width: 70%;
+    }
+}
+
+@media (max-width: 480px) {
+    .adminWrapper, .UserManagement, .SongManagement, .GenreManagement, .ArtistManagement, .PerformManagement {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .userInfo, .songInfo, .genreInfo, .artistInfo {
+        padding: 20px;
+        margin: 5px;
+    }
+    button {
+        padding: 5px;
+        font-size: 0.7rem;
+    }
+    .addGenre, .addArtist, .addSong, .addPerformer {
+        width: 90%;
+    }
+    .Buttons{
+        flex-direction: column;
+    }
+}
