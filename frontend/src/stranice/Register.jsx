@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import styles from "./Register.module.css"
 import { Link, useNavigate } from 'react-router-dom'
 import axios from "axios";
+import { AuthContext } from '../context/authContext';
 
 const Register = () => {
+  const {setCurrentUser}=useContext(AuthContext);
 
   const [inputs, setInputs]=useState({
     username:"", email:"", password:"", slika:"http://localhost:8800/public/slike/default.png"
@@ -17,7 +19,9 @@ const Register = () => {
     try {
       const res=await axios.post("/auth/register", inputs);
       console.log(res.data);
-      navigate("/login");
+      localStorage.setItem("token", res.data.token);
+      setCurrentUser(res.data.user);
+      navigate("/frontpage");
     } catch (err) {
       alert(err.response.data);
     }

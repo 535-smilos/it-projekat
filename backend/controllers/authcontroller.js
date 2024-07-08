@@ -39,7 +39,12 @@ const createUser = (username, password, slika, email, isAdmin, res) => {
     const q = "INSERT INTO korisnik (username, password, slika, email, je_admin) VALUES (?, ?, ?, ?, ?)";
     db.query(q, [username, hashpass, slika||null, email, isAdmin], (err, data) => {
         if (err) return res.json("Neuspjesno!"+err);
-        return res.json("Uspjesno kreiran korisnik!");
+        
+        const user = { username, slika, email, je_admin: isAdmin };
+
+        const token=jwt.sign({username:username, je_admin:isAdmin}, "jwtkey");
+
+        res.status(200).json({user, token});
     });
 };
 
