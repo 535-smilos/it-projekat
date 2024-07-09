@@ -49,7 +49,7 @@ const Login = () => {
               onChange={handleChange} />
             {/* {errors.password && <span>{errors.password}</span>} */}
             <button onClick={handleSubmit}>LOGIN</button>
-            <p>Doesn't have an account?  <Link to={"../register"}>Register</Link></p>
+            <p>Don't have an account?  <Link to={"../register"}>Register</Link></p>
           </form>
         </div>
       </div>
